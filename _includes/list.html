@@ -1,0 +1,31 @@
+<!-- list-style
+action		激活列表项
+success 	激活列表项
+secondary	次要列表项
+info      信息列表项
+warning		警告列表项
+danger  	危险列表项
+primary		主要列表项
+dark  		深灰色列表项
+light 		浅色列表项
+-->
+<div class="list-group">
+	{% for post in paginator.posts %}
+			<a href="{{ site.baseurl }}{{ post.url }}" class="list-group-item list-group-item-{{ page.list-style }}">
+				{{ post.date | date: "%Y-%m-%d" }}&nbsp;&nbsp;&nbsp;{{ post.title }}
+			</a>
+
+			<div class="card">
+			  <div class="card-body">
+			    <h4 class="card-title">{{ post.title }}</h4>
+			    <p class="card-text">{{ post.excerpt | strip_html }}</p>
+
+					{% for category in post.categories %}
+						 <a href="#" class="card-link">{{ category }}</a>
+					{% endfor %}
+			  </div>
+			</div>
+			<div style="height: 2rem;background-color:#fff">
+			</div>
+	{% endfor %}
+</div>

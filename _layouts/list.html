@@ -2,6 +2,9 @@
 layout: default
 title: 文章列表
 ---
+
 {% include list.html %}
 
-{% include pagination.html %}
+{% if paginator.total_pages > site.paginate %}
+  {% include pagination.html %}
+{%  endif %}
