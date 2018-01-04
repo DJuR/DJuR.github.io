@@ -1,0 +1,10 @@
+---
+layout: default
+title: 文章列表
+---
+
+{% include card.html %}
+
+{% if paginator.total_pages > site.paginate %}
+  {% include pagination.html %}
+{%  endif %}
