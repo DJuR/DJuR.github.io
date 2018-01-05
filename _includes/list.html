@@ -9,16 +9,21 @@ primary		主要列表项
 dark  		深灰色列表项
 light 		浅色列表项
 -->
-<div class="list-group">
+<style media="screen">
+</style>
+<div class="list-group ">
 	{% for post in paginator.posts %}
-			<a href="{{ site.baseurl }}{{ post.url }}" class="list-group-item list-group-item-{{ page.list-style }}">
-				{{ post.date | date: "%Y-%m-%d" }}&nbsp;&nbsp;&nbsp;{{ post.title }}
-			</a>
+		<div class="list-group-item list-group-item-{{ page.list-style }}">
+			<span class="small font-italic" style="padding-right: 8px;" >{{ post.date | date_to_string }}</span>
+			<a href="{{ site.baseurl }}{{ post.url }}" >{{ post.title }}</a>
+			<span class="glyphicons glyphicons-chevron-down float-right" href="#demo" data-toggle="collapse">&#xe602;</span>
+		</div>
 
-			<div class="card">
+
+			<div class="card" id="demo" class="collapse">
 			  <div class="card-body">
-			    <h4 class="card-title">{{ post.title }}</h4>
-			    <p class="card-text">{{ post.excerpt | strip_html }}</p>
+
+			    <p class="card-text">{{ post.excerpt | remove: '<!-- more -->' }}</p>
 
 					{% for category in post.categories %}
 						 <a href="#" class="card-link">{{ category }}</a>

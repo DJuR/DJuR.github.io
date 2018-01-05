@@ -1,12 +1,11 @@
 - name: HOME
   url: /
 
-- name: ABOUT
-  url: /about
-
-
 - name: BLOG
   url: /blog
 
 - name: TOOL
   url: /tool
+
+- name: ABOUT ME
+  url: /about

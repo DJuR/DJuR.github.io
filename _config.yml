@@ -3,6 +3,18 @@ paginate: 10
 paginate_path: "/blog/page:num/"
 excerpt_separator: '<!-- more -->'
 
+# 分类
+categories: [test, tool]
+
 # jum
 jum_title: "人魚兒"
 jum_content: "IF YOU WANT TO DO IT, DO IT!!!"
+
+# 默认值
+defaults:
+-
+  values:
+    nav-bg: "light"
+    nav-bar: "light"
+    card-bg: "light"
+    card-text: "white"
