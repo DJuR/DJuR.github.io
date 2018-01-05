@@ -1,5 +1,23 @@
+<!--
+nav-bg:
+light
+dark
+primary
+success
+info
+warning
+danger
+secondary
+
+
+nav-bar:
+light
+dark
+
+-->
+
 <header>
-	<nav class="navbar navbar-expand-sm bg-light navbar-light">
+	<nav class="navbar navbar-expand-sm bg-{{ page.nav-bg}} navbar-{{ page.nav-bar }} fixed-top">
   <ul class="navbar-nav">
 		{% for nav in site.data.navs %}
 
