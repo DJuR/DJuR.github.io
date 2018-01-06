@@ -14,10 +14,10 @@ white
 dark
 -->
 
-<div class="card bg-{{ site.card-bg }} text-{{ site.card-text }}  col-md-5" style="margin: 15px 24px;">
-    <div class="card-body">
-      <h4 class="card-title">{{ include.title }}</h4>
-      <p class="card-text">{{ include.excerpt }}sss</p>
+<div class="card bg-{{ site.card-bg }} text-{{ site.card-text }}  col-md-5 col-sm-5" style="margin: 20px 45px;">
+    <div class="card-body" style="text-overflow:ellipsis;overflow: hidden;max-height: 520px;margin-bottom: 25px;">
+      <h4 class="card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ include.title }}</a></h4>
+      <p class="card-text">{{ include.excerpt }}</p>
       <a href="#" class="card-link">Card link</a>
       <a href="#" class="card-link">Another link</a>
     </div>
