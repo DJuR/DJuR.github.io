@@ -1,6 +1,8 @@
 ---
 layout: default
 title: HOME
+nav-bg: secondary
+nav-bar: dark
 ---
 
-### HOME
+###  Welcome to My Blog on GitHub.

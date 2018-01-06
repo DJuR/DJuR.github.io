@@ -10,19 +10,16 @@
       {% endfor %}
   </ul> -->
 
-  {% assign cate = category | first  %}
-  {% if cate == include.cate %}
+    {% assign cate = category | first  %}
+    {% if cate == include.cate %}
 
-    <div class="row">
-  {% for post in category.last %}
-    {% assign excerpt = post.excerpt | remove: '<!-- more -->' %}
-
-      {% include card.html title=post.title
-        url=post.url excerpt=excerpt date=post.date %}
-  {% endfor %}
-</div>
-
-
-  {% endif %}
-
+        <div class="row">
+            {% for post in category.last %}
+                {% assign excerpt = post.excerpt | remove: '<!-- more -->' %}
+                {% include card.html title=post.title
+                    url=post.url excerpt=excerpt date=post.date %}
+            {% endfor %}
+        </div>
+        
+    {% endif %}
 {% endfor %}
