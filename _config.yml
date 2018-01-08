@@ -1,3 +1,7 @@
+theme: jekyll-theme-architect
+#remote_theme:
+gem: "minima"
+
 # 设置分页
 paginate: 10
 paginate_path: "/blog/page:num/"
@@ -18,7 +22,10 @@ textile_ext:   textile
 kramdown:
   input: GFM
 
-baseurl: /test.github.io
+# asss
+sass:
+  sass_dir: _sass
+  style: compressed
 
 # 默认值
 defaults:
