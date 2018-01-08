@@ -12,10 +12,13 @@ jum_content: "IF YOU WANT TO DO IT, DO IT!!!"
 
 
 # markdown解析器
-markdown: kramdown
-
+markdown:      kramdown
+markdown_ext:  markdown,mkd,mkdn,md
+textile_ext:   textile
 kramdown:
   input: GFM
+
+baseurl: /test.github.io
 
 # 默认值
 defaults:
