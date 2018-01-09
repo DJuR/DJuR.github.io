@@ -15,10 +15,8 @@ light
 dark
 
 -->
-
-<header>
-	<nav class="navbar navbar-expand-sm bg-{{ page.nav-bg}} navbar-{{ page.nav-bar }} fixed-top">
-  <ul class="navbar-nav">
+<nav class="navbar navbar-expand-sm bg-{{ page.nav-bg }} navbar-{{ page.nav-bar }} fixed-top">
+  	<ul class="navbar-nav">
 		{% for nav in site.data.navs %}
 
 			{% if nav.name == page.title %}
@@ -31,6 +29,10 @@ dark
 				</li>
 			{% endif %}
 		{% endfor %}
-  </ul>
+  	</ul>
 </nav>
-</header>
+
+  <div class="container inner">
+    <h1>{{ site.jum_title }}</h1>
+    <p>{{ site.jum_content }}</p>
+  </div>

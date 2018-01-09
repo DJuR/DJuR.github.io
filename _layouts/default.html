@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html>
-
-{% include head.html %}
+<html lang="{{ site.locale }}">
+<head>
+    {% include head.html %}
+</head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
-	{% include header.html %}
+	<header>
+        {% include header.html %}
+        
+    </header>
 
-	{% include jumbotron.html %}
 
-	{% include content.html %}
+    {% include content.html content_id=page.content_id %}
 
-	{% include footer.html %}
+    {% include footer.html %}
 
 </body>
 </html>

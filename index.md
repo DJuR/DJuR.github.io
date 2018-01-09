@@ -1,10 +1,8 @@
-# Welcome to GitHub Pages
-## Welcome to GitHub Pages
-### Welcome to GitHub Pages
-#### Welcome to GitHub Pages
-#### Welcome to GitHub Pages
-##### Welcome to GitHub Pages
-###### Welcome to GitHub Pages
+---
+layout: default
+---
+
+###  Welcome to My Blog on GitHub.
 
 You can use the [editor on GitHub](https://github.com/renyuer/renyuer.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
