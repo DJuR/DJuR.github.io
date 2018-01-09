@@ -1,3 +1,16 @@
+# Setup
+name:         人魚兒
+tagline:      A responsive theme for your project on GitHub Pages
+baseurl:      ""
+locale:       "en"
+
+# Gems
+gems:
+  - jekyll-paginate
+
+#Others
+markdown: kramdown
+
 # 设置分页
 paginate: 10
 paginate_path: "/blog/page:num/"
@@ -8,14 +21,20 @@ categories: [test, tool]
 
 # jum
 jum_title: "人魚兒"
-jum_content: "IF YOU WANT TO DO IT, DO IT!!!"
+jum_content: "IF YOU WANT TO DO IT, DO IT"
 
 
 # markdown解析器
-markdown: kramdown
-
+markdown:      kramdown
+markdown_ext:  markdown,mkd,mkdn,md
+textile_ext:   textile
 kramdown:
   input: GFM
+
+# asss
+sass:
+  sass_dir: _sass
+  style: compressed
 
 # 默认值
 defaults:
