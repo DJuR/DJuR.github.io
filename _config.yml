@@ -1,6 +1,15 @@
-theme: jekyll-theme-architect
-#remote_theme:
-gem: "minima"
+# Setup
+name:         人魚兒
+tagline:      A responsive theme for your project on GitHub Pages
+baseurl:      ""
+locale:       "en"
+
+# Gems
+gems:
+  - jekyll-paginate
+
+#Others
+markdown: kramdown
 
 # 设置分页
 paginate: 10
@@ -12,7 +21,7 @@ categories: [test, tool]
 
 # jum
 jum_title: "人魚兒"
-jum_content: "IF YOU WANT TO DO IT, DO IT!!!"
+jum_content: "IF YOU WANT TO DO IT, DO IT"
 
 
 # markdown解析器
