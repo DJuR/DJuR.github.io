@@ -13,8 +13,13 @@ card-text:
 white
 dark
 -->
-
-<div class="card bg-{{ site.card-bg }} text-{{ site.card-text }}  col-md-5 col-sm-5" style="margin: 20px 45px;">
+<style type="text/css">
+    #main-content h1:before, #main-content h2:before, #main-content h3:before, #main-content h4:before, #main-content h5:before, #main-content h6:before {
+        content: "";
+        margin-left: 0px;
+    }
+</style>
+<div class="card bg-{{ site.card-bg }} text-{{ site.card-text }} col-sm-5" style="margin: 1rem 2.5rem">
     <div class="card-body" style="text-overflow:ellipsis;overflow: hidden;max-height: 520px;margin-bottom: 25px;">
       <h4 class="card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ include.title }}</a></h4>
       <p class="card-text">{{ include.excerpt }}</p>
