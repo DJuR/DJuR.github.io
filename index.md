@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Welcome
-nav-bg: dark
 ---
 
 ###  Welcome to My Blog on GitHub.
