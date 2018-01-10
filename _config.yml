@@ -43,4 +43,4 @@ defaults:
     nav-bg: "light"
     nav-bar: "light"
     card-bg: "light"
-    card-text: "white"
+    card-text: "dark"
