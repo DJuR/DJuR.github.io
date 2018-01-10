@@ -108,6 +108,7 @@ ul, ol, dl {
 /* COMMON STYLES */
 
 table {
+  text-align: center;
   width: 100%;
   border: 1px solid #ebebeb;
 }
