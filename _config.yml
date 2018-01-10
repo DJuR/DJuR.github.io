@@ -40,7 +40,7 @@ sass:
 defaults:
 -
   values:
-    nav-bg: "light"
-    nav-bar: "light"
+    nav-bg: "dark"
+    nav-bar: "dark"
     card-bg: "light"
     card-text: "dark"
