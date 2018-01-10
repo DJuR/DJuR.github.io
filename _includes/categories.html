@@ -1,25 +1,15 @@
 
+<div class="container row">
 {% for category in site.categories %}
-
-<!--
-  <h2>{{ category | first }}</h2>
-  </span>{{ category | last | size }}</span>
-  <ul class="arc-list">
-      {% for post in category.last %}
-          <li>{{ post.date | date:"%d/%m/%Y"}}<a href="{{ post.url }}">{{ post.title }}</a></li>
-      {% endfor %}
-  </ul> -->
 
     {% assign cate = category | first  %}
     {% if cate == include.cate %}
 
-        <div class="row">
             {% for post in category.last %}
                 {% assign excerpt = post.excerpt | remove: '<!-- more -->' %}
-                {% include card.html title=post.title
-                    url=post.url excerpt=excerpt date=post.date %}
+                {% include card.html %}
             {% endfor %}
-        </div>
         
     {% endif %}
 {% endfor %}
+</div>
