@@ -16,26 +16,25 @@ light 		浅色列表项
 	}
 </style>
 <div class="list-group">
+	{% assign count=1 %}
 	{% for post in paginator.posts %}
 		<div class="list-group-item list-group-item-{{ page.list-style }}">
 			<span class="small font-italic" style="padding-right: 8px;" >{{ post.date | date_to_string }}</span>
 			<a href="{{ site.baseurl }}{{ post.url }}" >{{ post.title }}</a>
-			<span class="glyphicons glyphicons-chevron-down float-right" href="#demo" data-toggle="collapse">&#xe602;</span>
 		</div>
 
-
-			<div class="card" id="demo" class="collapse">
-			  <div class="card-body">
-
-			    <p class="card-text">{{ post.excerpt | remove: '<!-- more -->' }}</p>
-
-					{% for category in post.categories %}
-						 <a href="#" class="card-link">{{ category }}</a>
-					{% endfor %}
-			  </div>
-			</div>
-			<div style="height: 2rem;background-color:#fff">
-			</div>
+		<div class="card">
+		  	<div class="card-body">
+		    	<p class="card-text ">{{ post.excerpt | remove: '<!-- more -->' }}</p>
+				{% for category in post.categories %}
+					<a href="#" class="card-link">{{ category }}</a>
+				{% endfor %}
+		  	</div>
+		</div>
+		<div style="height: 2rem;background-color:#fff">
+			&nbsp;
+		</div>
+		
 	{% endfor %}
 </div>
 

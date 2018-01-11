@@ -1,11 +1,19 @@
-- name: HOME
+- title: HOME
   url: /
 
-- name: BLOG
-  url: /blog
+- title: ARTICLES
+  url: /articles
 
-- name: TOOL
-  url: /tool
+- title: TOOLS
+  url: /tools
 
-- name: ABOUT ME
+- title: ABOUT ME
   url: /about
+
+- title: CATEGORIES
+  url: /categories
+  dropdown:
+    - title: TOOLS
+      url: /tools
+    - title: test2
+      url: test2
