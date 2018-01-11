@@ -19,20 +19,34 @@ dark
   	<ul class="navbar-nav">
 		{% for nav in site.data.navs %}
 
-			{% if nav.name == page.title %}
-				<li class="nav-item active">
-					<a class="nav-link" href="{{ nav.url }}">{{ nav.name }}</a>
-				</li>
-			{% else %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{ nav.url }}">{{ nav.name }}</a>
-				</li>
-			{% endif %}
+            {% if nav.title == page.title %}
+                {% assign active='active' %}
+            {% else %}
+                 {% assign active='' %}
+            {% endif %}
+
+            {% if nav.dropdown %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{{ nav.url }}" id="navbardrop" data-toggle="dropdown">
+                        {{ nav.title }}
+                    </a>
+                    <div class="dropdown-menu">
+                        {% for n in nav.dropdown %}
+                            <a class="dropdown-item" href="{{ n.url }}">{{ n.title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item {{ active }}">
+                    <a class="nav-link" href="{{ nav.url }}">{{ nav.title }}</a>
+                </l>
+            {% endif %}
 		{% endfor %}
+        
   	</ul>
 </nav>
 
-  <div class="container inner">
-    <h1>{{ site.jum_title }}</h1>
-    <p>{{ site.jum_content }}</p>
-  </div>
+<div class="container inner">
+<h1>{{ site.jum_title }}</h1>
+<p>{{ site.jum_content }}</p>
+</div>
