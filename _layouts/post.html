@@ -21,11 +21,13 @@ title: 文章列表
                 <br>
                 {{ post.content }}
             </div>
+
+
         </div>
     </div>
 {% endfor %}
-
-
+<div>
+    
 {% if paginator.total_pages > 1 %}
   {% include pagination.html %}
 {%  endif %}
