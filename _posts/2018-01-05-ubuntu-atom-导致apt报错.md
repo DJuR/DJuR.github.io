@@ -1,7 +1,7 @@
 ---
-layout: default
+layout: page
 title: ubuntu安装atom导致apt报错
-categories: [test, sample, tool]
+categories: [ubuntu, atom, 编辑器]
 ---
 
 ubuntu安装atom官方下载的安装包安装导致apt报错:

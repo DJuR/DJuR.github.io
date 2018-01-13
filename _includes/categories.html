@@ -5,11 +5,10 @@
     {% assign cate = category | first  %}
     {% if cate == include.cate %}
 
-            {% for post in category.last %}
-                {% assign excerpt = post.excerpt | remove: '<!-- more -->' %}
-                {% include card.html %}
-            {% endfor %}
-        
+        {% for post in category.last %}
+            {% assign excerpt = post.excerpt | remove: '<!-- more -->' %}
+            {% include card.html %}
+        {% endfor %}        
     {% endif %}
 {% endfor %}
 </div>
