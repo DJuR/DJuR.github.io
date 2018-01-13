@@ -1,0 +1,16 @@
+---
+layout: default
+title: 文章列表
+---
+
+{% for category in site.categories %}
+    <br>
+    <h2>{{ category | first }}&nbsp;&nbsp;<small>({{ category | last | size }})</small></h2>
+    <ul class="list-group">
+        {% for post in category.last %}
+            <a href="{{ site.baseurl }}{{ post.url }}" 
+                class="list-group-item list-group-item-default" style="margin: 10px 0px;">
+                <abbr class="text-secondary">{{ post.date | date_to_string }}</abbr>&nbsp;&nbsp;{{ post.title }}</a>
+        {% endfor %}
+    </ul>
+{% endfor %}

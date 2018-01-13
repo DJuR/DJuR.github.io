@@ -1,7 +1,7 @@
 ---
-layout: default
+layout: page
 title: python 缺少tkinter包
-categories: [tool]
+categories: [python]
 ---
 
 

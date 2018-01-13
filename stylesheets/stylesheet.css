@@ -604,7 +604,9 @@ form {
 
 
 /* GENERAL ELEMENT TYPE STYLES */
-
+#main-content {
+  margin: 0px 1.9rem;
+}
 
 #main-content h1 {
   margin-top: 0;
