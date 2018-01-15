@@ -4,6 +4,7 @@ title: python 缺少tkinter包
 categories: [python]
 ---
 
+## python提示缺少tkinter包
 
 **python 提示缺少tkinter包:**
 
