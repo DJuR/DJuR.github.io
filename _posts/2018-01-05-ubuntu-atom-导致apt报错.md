@@ -1,8 +1,10 @@
 ---
 layout: page
-title: ubuntu安装atom导致apt报错
-categories: [ubuntu, atom, 编辑器]
+title: ubuntu安装atom导致apt报错解决方法
+categories: [ubuntu]
 ---
+
+## ubuntu安装atom导致apt报错解决方法
 
 ubuntu安装atom官方下载的安装包安装导致apt报错:
 

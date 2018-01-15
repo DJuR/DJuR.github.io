@@ -3,7 +3,6 @@ layout: default
 title: 文章列表
 ---
 
-
 {% for post in paginator.posts %}
     <div class="card bg-{{ page.card-bg }} text-{{ page.card-text }}" style="margin-top: 35px;">
         <div class="card-body">
@@ -17,8 +16,6 @@ title: 文章列表
                 {% for category in post.categories %}
                     <a class="label label-default card-link" href="##">{{ category }}</a>
                 {% endfor %}
-                <br>
-                <br>
                 {{ post.content }}
             </div>
 
