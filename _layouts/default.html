@@ -3,7 +3,7 @@
 <head>
     {% include head.html %}
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="120">
+<body data-spy="scroll" data-target=".navbar" data-offset="120" id="top">
     <header>
         {% include header.html %}
         
@@ -15,5 +15,61 @@
         {% include footer.html %}
     </div> 
 
+    
+<style type="text/css">
+.back-to-top {
+    /*display: none;*/
+    opacity: .9;
+    z-index: 999999;
+    position: fixed;
+    bottom: 100px;
+    right: 5%;
+    margin-left: 40px;
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #2e7bcf;
+}
+.x-arrow {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: #2e7bcf;
+}
+.x-stick {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 8px;
+    height: 14px;
+    display: block;
+    border-radius: 1px;
+    background-color: #2e7bcf;
+}
+</style>
+
+<div class="back-to-top">
+    <div class="x-arrow"></div>
+    <div class="x-stick"></div>
+</div>
+<script type="text/javascript">
+    $(function() {
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 1000)
+            $('.back-to-top').show();
+        else
+            $('.back-to-top').hide();
+    });
+    $('.back-to-top').click(function() {
+        console.log('a')
+        $('html, body').animate({scrollTop: 0}, 1000);
+    });
+});
+</script>
 </body>
 </html>
