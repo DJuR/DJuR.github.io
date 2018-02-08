@@ -142,9 +142,9 @@ mysite/settings.py 项目变量配置文件默认的是SQLite数据库配置(SQL
 
 Django已经把后端模块帮我准备好了，只需要执行数据库同步，把相关表生成出来即可：
 
-    ```
-    $ python3 manage.py migrate
-    ```
+```
+$ python3 manage.py migrate
+```
 
 * 创建后端管理员账号:
 
