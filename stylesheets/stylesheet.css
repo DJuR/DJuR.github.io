@@ -12,12 +12,14 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
 }
 
+
 /**
  * Remove default margin.
  */
 
 body {
   margin: 0;
+  font-size: 14px;
 }
 
 /* HTML5 display definitions
@@ -44,6 +46,10 @@ nav,
 section,
 summary {
   display: block;
+}
+
+footer{
+  text-align: center;
 }
 
 /**
@@ -432,7 +438,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #666;
-  background: #fafafa;
+  background: #efefef;
 }
 
 p {
@@ -542,12 +548,12 @@ code, pre {
   margin-bottom: 30px;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 13px;
-  color: #222;
+  
 }
 
 code {
   padding: 0 3px;
-  background-color: #f2f8fc;
+  /*background-color: #f2f8fc;*/
   border: solid 1px #dbe7f3;
 }
 
@@ -556,12 +562,13 @@ pre {
   overflow: auto;
   text-shadow: none;
   background: #fff;
-  border: solid 1px #f2f2f2;
+  border: solid 1px rgba(0,0,0,.125);
+  border-radius: .25rem;
 }
 pre code {
   padding: 0;
   color: #2879d0;
-  background-color: #fff;
+  /*background-color: #fff;*/
   border: none;
 }
 
@@ -604,6 +611,7 @@ form {
 
 /* GENERAL ELEMENT TYPE STYLES */
 #main-content {
+  padding: 20px 0px;
   margin: 0px 1.9rem;
 }
 
@@ -616,6 +624,7 @@ form {
   color: #474747;
   text-indent: 6px;
   letter-spacing: -1px;
+
 }
 
 #main-content h1:before {
@@ -700,6 +709,11 @@ h6:before {
   content: "//////";
   color: #9ddcff;
 }
+
+.container h1, .container h2, .container h3, .container h4, .container h5, .container h6 {
+  font-family: 'KaiTi', 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+}
+
 #main-content h1,
 #main-content h2,
 #main-content h3,
@@ -707,10 +721,10 @@ h6:before {
 #main-content h5,
 #main-content h6 {
     margin-top:24px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 p {
-  margin-bottom: 20px;
+
 }
 
 a {
