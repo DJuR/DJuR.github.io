@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
+
+<title>php Phalcon7</title>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="120" id="top">
+    <header>
+        <!--
+nav-bg:
+light
+dark
+primary
+success
+info
+warning
+danger
+secondary
+
+
+nav-bar:
+light
+dark
+
+-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+  	<ul class="navbar-nav">
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">HOME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/articles">ARTICLES</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/lists">LISTS</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/about">ABOUT ME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/categories" id="navbardrop" data-toggle="dropdown">
+                        CATEGORIES
+                    </a>
+                    <div class="dropdown-menu">
+                        
+                            <a class="dropdown-item" href="">TOOLS</a>
+                        
+                            <a class="dropdown-item" href="">test2</a>
+                        
+                    </div>
+                </li>
+            
+		
+        
+  	</ul>
+</nav>
+
+<div class="jumbotron jumbotron-fluid" style="background: #2e7bcf;padding-bottom: 0px;">
+    <div class="container">
+        <h1>人魚兒</h1>
+        <p>IF YOU WANT TO DO IT, DO IT</p>
+    </div>
+</div>
+
+        
+    </header>
+    <div class="container">
+        
+        <div id="main-content">
+   <h3 id="phalcon7-让一切变得简单">Phalcon7 让一切变得简单!</h3>
+<p>欢迎来到 Phalcon7 框架， 一种崭新的 PHP 框架。我们的使命是给开发者一个开发 web 站点和应用的高级工具，让开发者不用担心框架的性能问题.</p>
+
+<h3 id="phalcon7-是什么">Phalcon7 是什么？</h3>
+<p>Phalcon7 是继承自 Phalcon 1.3.x，开源、全功能栈、使用 C 编写、针对 PHP 7 优化的高性能框架。 开发者不需要学习和使用 C 语言的功能， 因为所有的功能都以 PHP 类的方式暴露出来，可以直接使用。 Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，是松耦合的，可以根据项目的需要任意使用其他对象。</p>
+
+<h3 id="phalcon7-不只是为了卓越的性能-我们的目标是让它更加健壮拥有更加丰富的功能以及更加简单易于使用">Phalcon7 不只是为了卓越的性能, 我们的目标是让它更加健壮，拥有更加丰富的功能以及更加简单易于使用！</h3>
+
+<h3 id="phalcon7-版权申明">Phalcon7 版权申明</h3>
+<p>Phalcon7 作为 Phalcon 1.3 系列的继承者，所以版权理所当然的属于 Phalcon 官方团队所有</p>
+
+<h3 id="安装installation">安装（Installation</h3>
+<p>作为PHP C拓展形式的Phalcon，需要一个略微不同于传统PHP的库或框架的安装方法。你可以选择一个当前系统的一个二进制包下载，或者使用源代码构建它。</p>
+
+<h3 id="linuxsolaris">Linux/Solaris¶</h3>
+<p>在Linux/Solaris系统下，你能很轻易从源代码编译和安装这个拓展:</p>
+
+<h3 id="基本要求requirements">基本要求（Requirements）¶</h3>
+<p>必要的包:</p>
+
+<p>PHP &gt;= 7.0 development resources
+GCC compiler (Linux/Solaris)
+Git (如果不是已经安装在你的系统，且你没有从Github上下载这个包并通过FTP/SFTP上传到你的服务器上)</p>
+<h3 id="编译compilation">编译（Compilation）</h3>
+<p>创建扩展:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone --depth=1 git://github.com/dreamsxin/cphalcon7.git
+cd cphalcon7/ext
+phpize
+./configure
+make &amp;&amp; sudo make install
+</code></pre></div></div>
+<p>添加扩展到你的php配置文件，然后重启Web服务器，如果你使用 php-fpm，则重启 php-fpm。</p>
+
+
+</div>
+
+
+        <footer class="navbar-fixed-bottom">
+    <p>Copyrigh &copy; 2018</p>
+</footer>
+
+    </div> 
+
+    
+<style type="text/css">
+.back-to-top {
+    /*display: none;*/
+    opacity: .9;
+    z-index: 999999;
+    position: fixed;
+    bottom: 100px;
+    right: 5%;
+    margin-left: 40px;
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #2e7bcf;
+}
+.x-arrow {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: #2e7bcf;
+}
+.x-stick {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 8px;
+    height: 14px;
+    display: block;
+    border-radius: 1px;
+    background-color: #2e7bcf;
+}
+</style>
+
+<div class="back-to-top">
+    <div class="x-arrow"></div>
+    <div class="x-stick"></div>
+</div>
+<script type="text/javascript">
+    $(function() {
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 1000)
+            $('.back-to-top').show();
+        else
+            $('.back-to-top').hide();
+    });
+    $('.back-to-top').click(function() {
+        console.log('a')
+        $('html, body').animate({scrollTop: 0}, 1000);
+    });
+});
+</script>
+</body>
+</html>
