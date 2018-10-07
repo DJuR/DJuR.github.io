@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
+
+<title>php中遇到的字符串问题</title>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="120" id="top">
+    <header>
+        <!--
+nav-bg:
+light
+dark
+primary
+success
+info
+warning
+danger
+secondary
+
+
+nav-bar:
+light
+dark
+
+-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+  	<ul class="navbar-nav">
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">HOME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/articles">ARTICLES</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/lists">LISTS</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/about">ABOUT ME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/categories" id="navbardrop" data-toggle="dropdown">
+                        CATEGORIES
+                    </a>
+                    <div class="dropdown-menu">
+                        
+                            <a class="dropdown-item" href="">TOOLS</a>
+                        
+                            <a class="dropdown-item" href="">test2</a>
+                        
+                    </div>
+                </li>
+            
+		
+        
+  	</ul>
+</nav>
+
+<div class="jumbotron jumbotron-fluid" style="background: #2e7bcf;padding-bottom: 0px;">
+    <div class="container">
+        <h1>人魚兒</h1>
+        <p>IF YOU WANT TO DO IT, DO IT</p>
+    </div>
+</div>
+
+        
+    </header>
+    <div class="container">
+        
+        <div id="main-content">
+   <h2 id="php中字符串和数字比较">php中字符串和数字比较</h2>
+
+<p>数字与字符串比较时, 先尝试将字符串转换为数字, 再比较, 一个不能转换为数字的字符串, 转换结果为0, 故与0比较总返回true</p>
+
+<p>执行代码:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var_dump(in_array('test', [0]));
+var_dump('test' == 0);
+</code></pre></div></div>
+
+<p>返回结果为:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool(true)
+bool(true)
+</code></pre></div></div>
+
+<h2 id="字符填充函数">字符填充函数</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str_pad(string, length, pad_string, pad_type)
+</code></pre></div></div>
+<ul>
+  <li>string        要填充的字符串</li>
+  <li>length        新的字符串长度</li>
+  <li>pad_string    填充使用的字符串</li>
+  <li>pad_type      填充位置(左侧:STR_PAD_LEFT，右侧:STR_PAD_RIGHT，两侧:STR_PAD_BOTH)</li>
+</ul>
+
+<p>两侧填充不为偶数，右侧优先：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo str_pad('hello', 10, 't', STR_PAD_BOTH);
+</code></pre></div></div>
+<p>结果:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tthellottt
+</code></pre></div></div>
+
+<h2 id="字符串长度分割">字符串长度分割</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str_split(string, length =1)
+</code></pre></div></div>
+
+
+
+</div>
+
+
+        <footer class="navbar-fixed-bottom">
+    <p>Copyrigh &copy; 2018</p>
+</footer>
+
+    </div> 
+
+    
+<style type="text/css">
+.back-to-top {
+    /*display: none;*/
+    opacity: .9;
+    z-index: 999999;
+    position: fixed;
+    bottom: 100px;
+    right: 5%;
+    margin-left: 40px;
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #2e7bcf;
+}
+.x-arrow {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: #2e7bcf;
+}
+.x-stick {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 8px;
+    height: 14px;
+    display: block;
+    border-radius: 1px;
+    background-color: #2e7bcf;
+}
+</style>
+
+<div class="back-to-top">
+    <div class="x-arrow"></div>
+    <div class="x-stick"></div>
+</div>
+<script type="text/javascript">
+    $(function() {
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 1000)
+            $('.back-to-top').show();
+        else
+            $('.back-to-top').hide();
+    });
+    $('.back-to-top').click(function() {
+        console.log('a')
+        $('html, body').animate({scrollTop: 0}, 1000);
+    });
+});
+</script>
+</body>
+</html>

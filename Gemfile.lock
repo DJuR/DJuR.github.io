@@ -4,7 +4,7 @@ PATH
     jekyll-architect-theme (0.1.0)
 
 GEM
-  remote: https://gems.ruby-china.org/
+  remote: https://gems.ruby-china.com/
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
@@ -76,4 +76,4 @@ DEPENDENCIES
   rake (~> 10.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.6

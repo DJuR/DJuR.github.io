@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
+
+<title>Jekyll 初试</title>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="120" id="top">
+    <header>
+        <!--
+nav-bg:
+light
+dark
+primary
+success
+info
+warning
+danger
+secondary
+
+
+nav-bar:
+light
+dark
+
+-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+  	<ul class="navbar-nav">
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">HOME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/articles">ARTICLES</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/lists">LISTS</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/about">ABOUT ME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/categories" id="navbardrop" data-toggle="dropdown">
+                        CATEGORIES
+                    </a>
+                    <div class="dropdown-menu">
+                        
+                            <a class="dropdown-item" href="">TOOLS</a>
+                        
+                            <a class="dropdown-item" href="">test2</a>
+                        
+                    </div>
+                </li>
+            
+		
+        
+  	</ul>
+</nav>
+
+<div class="jumbotron jumbotron-fluid" style="background: #2e7bcf;padding-bottom: 0px;">
+    <div class="container">
+        <h1>人魚兒</h1>
+        <p>IF YOU WANT TO DO IT, DO IT</p>
+    </div>
+</div>
+
+        
+    </header>
+    <div class="container">
+        
+        <div id="main-content">
+   <h2 id="jekyll-搭建博客">Jekyll 搭建博客</h2>
+
+<p>jekyll是一个简单的免费的静态网页Blog生成工具，不需要数据库支持，可以免费部署在Github上，而且可以绑定自己的域名。</p>
+
+<!-- more -->
+
+<ul>
+  <li>安装 Ruby</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt install ruby
+</code></pre></div></div>
+
+<ul>
+  <li>安装 jekyll</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install jekyll
+</code></pre></div></div>
+
+<p>不成功尝试安装ruby-dev</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt install ruby-dev
+$ sudo gem install jekyll
+</code></pre></div></div>
+
+<ul>
+  <li>创建 Gemfile　添加内容</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ source 'https://gems.ruby-china.org/'
+$ gem 'github-pages', group: :jekyll_plugins
+
+</code></pre></div></div>
+
+<ul>
+  <li>安装 bundler</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install bundler
+</code></pre></div></div>
+
+<p>进入项目目录,运行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bundle install
+</code></pre></div></div>
+
+<ul>
+  <li>启动jekyll 服务</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll serve
+</code></pre></div></div>
+
+<h2 id="jekyll-themes">Jekyll Themes</h2>
+
+<p>下载Jekyll 模板，替换相应的文件</p>
+
+<h2 id="扩展阅读">扩展阅读</h2>
+
+<ul>
+  <li><a href="https://pages.github.com">Github Pages</a></li>
+  <li><a href="https://jekyllrb.com">Jekyll</a></li>
+  <li><a href="http://jekyllthemes.org">Jekyll Themes</a></li>
+  <li>Ruby <a href="https://www.ruby-lang.org/zh_cn/">中文</a> <a href="https://www.ruby-lang.org/en/">English</a></li>
+  <li><a href="https://rubygems.org/">RGems</a> <a href="http://gems.ruby-china.org">RubyGems-Ruby China</a></li>
+  <li><a href="https://help.github.com/categories/customizing-github-pages/">Customizing Github Pages</a></li>
+  <li><a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html">搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门【阮一峰】</a></li>
+</ul>
+
+
+</div>
+
+
+        <footer class="navbar-fixed-bottom">
+    <p>Copyrigh &copy; 2018</p>
+</footer>
+
+    </div> 
+
+    
+<style type="text/css">
+.back-to-top {
+    /*display: none;*/
+    opacity: .9;
+    z-index: 999999;
+    position: fixed;
+    bottom: 100px;
+    right: 5%;
+    margin-left: 40px;
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #2e7bcf;
+}
+.x-arrow {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: #2e7bcf;
+}
+.x-stick {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 8px;
+    height: 14px;
+    display: block;
+    border-radius: 1px;
+    background-color: #2e7bcf;
+}
+</style>
+
+<div class="back-to-top">
+    <div class="x-arrow"></div>
+    <div class="x-stick"></div>
+</div>
+<script type="text/javascript">
+    $(function() {
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 1000)
+            $('.back-to-top').show();
+        else
+            $('.back-to-top').hide();
+    });
+    $('.back-to-top').click(function() {
+        console.log('a')
+        $('html, body').animate({scrollTop: 0}, 1000);
+    });
+});
+</script>
+</body>
+</html>

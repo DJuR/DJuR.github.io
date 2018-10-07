@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
+
+<title>redis Master-Slave</title>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="120" id="top">
+    <header>
+        <!--
+nav-bg:
+light
+dark
+primary
+success
+info
+warning
+danger
+secondary
+
+
+nav-bar:
+light
+dark
+
+-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+  	<ul class="navbar-nav">
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">HOME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/articles">ARTICLES</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/lists">LISTS</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item ">
+                    <a class="nav-link" href="/about">ABOUT ME</a>
+                </l>
+            
+		
+
+            
+
+            
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/categories" id="navbardrop" data-toggle="dropdown">
+                        CATEGORIES
+                    </a>
+                    <div class="dropdown-menu">
+                        
+                            <a class="dropdown-item" href="">TOOLS</a>
+                        
+                            <a class="dropdown-item" href="">test2</a>
+                        
+                    </div>
+                </li>
+            
+		
+        
+  	</ul>
+</nav>
+
+<div class="jumbotron jumbotron-fluid" style="background: #2e7bcf;padding-bottom: 0px;">
+    <div class="container">
+        <h1>人魚兒</h1>
+        <p>IF YOU WANT TO DO IT, DO IT</p>
+    </div>
+</div>
+
+        
+    </header>
+    <div class="container">
+        
+        <div id="main-content">
+   <h2 id="前言">前言</h2>
+
+<p>部署一个Master，多个Slave的架构，还包含一些简单的主从管理命令的使用。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir /opt/redis/mss
+</code></pre></div></div>
+
+<p>master的配置文件:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/master_6379.conf
+
+$ vim /opt/redis/mss/master_6379.conf
+</code></pre></div></div>
+
+<p>打开这个文件后，编辑如下内容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
+ 
+pidfile /var/run/redis_6379.pid
+ 
+port 6379
+ 
+logfile “/opt/redis/log/master_6379.log” # 该项可不设置，默认输出到/dev/null
+ 
+slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的slave1的配置文件
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/slave_6380.conf
+
+$ vim /opt/redis/mss/slave_6380.conf
+</code></pre></div></div>
+<p>打开这个文件后，编辑如下内容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
+ 
+pidfile /var/run/redis_6380.pid
+ 
+port 6380
+ 
+logfile “/opt/redis/log/slave_6380.log” # 该项可不设置，默认输出到/dev/null
+ 
+slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的
+ 
+slaveof 127.0.0.1 6379
+</code></pre></div></div>
+<p>slave2的配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/slave_6381.conf
+ 
+$ vim /opt/redis/mss/slave_6381.conf
+</code></pre></div></div>
+
+<p>打开这个文件后，编辑如下内容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
+ 
+pidfile /var/run/redis_6381.pid
+ 
+port 6381
+ 
+logfile “/opt/redis/log/slave_6381.log” # 该项可不设置，默认输出到/dev/null
+ 
+slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的
+ 
+slaveof 127.0.0.1 6379
+</code></pre></div></div>
+
+<p>slave3的配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/slave_6383.conf
+ 
+$ vim /opt/redis/mss/slave_6383.conf
+</code></pre></div></div>
+
+<p>打开这个文件后，编辑如下内容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
+ 
+pidfile /var/run/redis_6383.pid
+ 
+port 6383
+ 
+logfile “/opt/redis/log/slave_6383.log” # 该项可不设置，默认输出到/dev/null
+ 
+slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的
+ 
+slaveof 127.0.0.1 6380
+</code></pre></div></div>
+
+<h2 id="启动redis">启动Redis</h2>
+
+<p>启动Master</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir /opt/redis/log
+ 
+$ redis-server /opt/redis/mss/master_6379.conf
+ 
+$ ps -ef | grep redis
+$ root 1401 1 0 07:08 ? 00:00:00 redis-server *:6379
+$ root 1405 1333 0 07:09 pts/1 00:00:00 grep redis
+</code></pre></div></div>
+
+<p>查看日志：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@vm ~]# tail -f /opt/redis/log/master_6379.log
+</code></pre></div></div>
+
+<p>启动Slave</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-server /opt/redis/mss/slave_6380.conf
+ 
+$ redis-server /opt/redis/mss/slave_6381.conf
+ 
+$ redis-server /opt/redis/mss/slave_6383.conf
+ 
+$ ps -ef | grep redis
+$ root 1401 1 0 07:08 ? 00:00:00 redis-server *:6379
+$ root 1409 1 0 07:11 ? 00:00:00 redis-server *:6380
+$ root 1414 1 0 07:11 ? 00:00:00 redis-server *:6381
+$ root 1419 1 0 07:11 ? 00:00:00 redis-server *:6383
+$ root 1424 1333 0 07:11 pts/1 00:00:00 grep redis
+ 
+$
+</code></pre></div></div>
+
+<p>从上面可以看到，三个都启动成功了。</p>
+
+<p>查看主从结构</p>
+
+<p>登录master查看并设置Key</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@vm ~]# redis-cli -p 6379
+ 
+127.0.0.1:6379&gt; info Replication
+ 
+# Replication
+ 
+role:master
+ 
+connected_slaves:2
+ 
+slave0:ip=127.0.0.1,port=6380,state=online,offset=113,lag=1
+ 
+slave1:ip=127.0.0.1,port=6381,state=online,offset=113,lag=1
+ 
+master_repl_offset:113
+ 
+repl_backlog_active:1
+ 
+repl_backlog_size:1048576
+ 
+repl_backlog_first_byte_offset:2
+ 
+repl_backlog_histlen:112
+ 
+127.0.0.1:6379&gt; set hi hello
+ 
+OK
+ 
+127.0.0.1:6379&gt; get hi
+ 
+“hello”
+ 
+127.0.0.1:6379&gt;
+</code></pre></div></div>
+
+<p>在上面的操作中，我们查看了主从赋值的情况，可以看到，master拥有两个 slave， 分别是监听了6380和6381端口的，然后我们设置了一个key为hi值为hello的键值对，我们发现，这和我们预期的部署是一样的。</p>
+
+<p>登录slave1并查看主从信息和设置的key</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6380
+ 
+$ 127.0.0.1:6380&gt; info replication
+ 
+# Replication
+ 
+role:slave
+ 
+master_host:127.0.0.1
+ 
+master_port:6379
+ 
+master_link_status:up
+ 
+master_last_io_seconds_ago:6
+ 
+master_sync_in_progress:0
+ 
+slave_repl_offset:532
+ 
+slave_priority:100
+ 
+slave_read_only:1
+ 
+connected_slaves:1
+ 
+slave0:ip=127.0.0.1,port=6383,state=online,offset=532,lag=1
+ 
+master_repl_offset:532
+ 
+repl_backlog_active:1
+ 
+repl_backlog_size:1048576
+ 
+repl_backlog_first_byte_offset:2
+ 
+repl_backlog_histlen:531
+ 
+127.0.0.1:6380&gt; get hi
+ 
+“hello”
+ 
+127.0.0.1:6380&gt;
+</code></pre></div></div>
+
+<p>我们发现，该slave的主是127.0.0.1:6379，并且还有一个Slave3【127.0.0.1:6383】,这都是符合我们预期的结果，最后获取了hi这个key的值，结果发现已经通过过来了，一切正常。</p>
+
+<p>登录slave2并查看主从信息和设置的key</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6381
+ 
+127.0.0.1:6381&gt; info replication
+ 
+# Replication
+ 
+role:slave
+ 
+master_host:127.0.0.1
+ 
+master_port:6379
+ 
+master_link_status:up
+ 
+master_last_io_seconds_ago:9
+ 
+master_sync_in_progress:0
+ 
+slave_repl_offset:812
+ 
+slave_priority:100
+ 
+slave_read_only:1
+ 
+connected_slaves:0
+ 
+master_repl_offset:0
+ 
+repl_backlog_active:0
+ 
+repl_backlog_size:1048576
+ 
+repl_backlog_first_byte_offset:0
+ 
+repl_backlog_histlen:0
+ 
+127.0.0.1:6381&gt; get hi
+ 
+“hello”
+ 
+127.0.0.1:6381&gt;
+</code></pre></div></div>
+
+<p>登录slave3并查看主从信息和设置的key</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6383
+ 
+127.0.0.1:6383&gt; info replication
+ 
+# Replication
+ 
+role:slave
+ 
+master_host:127.0.0.1
+ 
+master_port:6380
+ 
+master_link_status:up
+ 
+master_last_io_seconds_ago:10
+ 
+master_sync_in_progress:0
+ 
+slave_repl_offset:924
+ 
+slave_priority:100
+ 
+slave_read_only:1
+ 
+connected_slaves:0
+ 
+master_repl_offset:0
+ 
+repl_backlog_active:0
+ 
+repl_backlog_size:1048576
+ 
+repl_backlog_first_byte_offset:0
+ 
+repl_backlog_histlen:0
+ 
+127.0.0.1:6383&gt; get hi
+ 
+“hello”
+ 
+127.0.0.1:6383&gt;
+</code></pre></div></div>
+
+<p>我们发现，key为hi的键值对也同步过来了，并且slave3的主是【127.0.0.1:6380】，即slave1。</p>
+
+<p>主从切换、调整</p>
+
+<p>在上一小节中我们实现了主从结构的部署，现实中我们可能会遇到某个主服务器或是从服务器宕机的情况，可能需要手动切换主从服务器，那么我们可以使用简单的slaveof命令来实现主从关系的维护。</p>
+
+<p>slaveof no one: 该命令表示，断开和主的关系，自己成为master</p>
+
+<p>slaveof [ip] [port]: 表示把自己设置成 ip:port 的从Redis</p>
+
+<p>模拟slave1宕机，将slave3的主设置为slave2</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6380 shutdown # 模拟slave1宕机
+ 
+$ redis-cli -p 6383
+ 
+127.0.0.1:6383&gt; info Replication
+ 
+# Replication
+ 
+role:slave
+ 
+master_host:127.0.0.1
+ 
+master_port:6380
+ 
+master_link_status:down # slave1 已经宕机了
+ 
+127.0.0.1:6383&gt; slaveof 127.0.0.1 6381 # 重新设置slave2为自己的主
+ 
+OK
+ 
+127.0.0.1:6383&gt; info Replication
+ 
+# Replication
+ 
+role:slave
+ 
+master_host:127.0.0.1
+ 
+master_port:6381
+ 
+master_link_status:up
+</code></pre></div></div>
+
+<p>上面的操作过程主要是，关闭slave1，然后将slave2作为slave3的master，可以看到我们成功进行了切换。</p>
+
+<p>模拟slave2宕机，slave3升级为独立master</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6381 shutdown # 模拟slave2宕机
+ 
+$ redis-cli -p 6383
+ 
+127.0.0.1:6383&gt; info Replication
+ 
+# Replication
+ 
+role:slave
+ 
+master_host:127.0.0.1
+ 
+master_port:6381
+ 
+master_link_status:down # slave2 也宕机了
+ 
+master_last_io_seconds_ago:-1
+ 
+127.0.0.1:6383&gt; slaveof no one
+ 
+OK
+ 
+127.0.0.1:6383&gt; info Replication
+ 
+·#· Replication
+ 
+role:master # 升级成为了master
+ 
+connected_slaves:0
+ 
+master_repl_offset:0
+ 
+repl_backlog_active:0
+ 
+repl_backlog_size:1048576
+ 
+repl_backlog_first_byte_offset:0
+ 
+repl_backlog_histlen:0
+ 
+127.0.0.1:6383&gt;
+</code></pre></div></div>
+
+
+</div>
+
+
+        <footer class="navbar-fixed-bottom">
+    <p>Copyrigh &copy; 2018</p>
+</footer>
+
+    </div> 
+
+    
+<style type="text/css">
+.back-to-top {
+    /*display: none;*/
+    opacity: .9;
+    z-index: 999999;
+    position: fixed;
+    bottom: 100px;
+    right: 5%;
+    margin-left: 40px;
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #2e7bcf;
+}
+.x-arrow {
+    position: absolute;
+    left: 10px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: #2e7bcf;
+}
+.x-stick {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    width: 8px;
+    height: 14px;
+    display: block;
+    border-radius: 1px;
+    background-color: #2e7bcf;
+}
+</style>
+
+<div class="back-to-top">
+    <div class="x-arrow"></div>
+    <div class="x-stick"></div>
+</div>
+<script type="text/javascript">
+    $(function() {
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 1000)
+            $('.back-to-top').show();
+        else
+            $('.back-to-top').hide();
+    });
+    $('.back-to-top').click(function() {
+        console.log('a')
+        $('html, body').animate({scrollTop: 0}, 1000);
+    });
+});
+</script>
+</body>
+</html>
