@@ -1,16 +1,14 @@
 ---
 layout: post
-title:  在线工具文档博客收藏
-categories: 收藏
-tag: 收藏
+title: 工具文档
+permalink: /tool/
 ---
+
 * content
 {:toc}
 
 
-## 在线工具文档博客收藏
-
-**在线工具:**
+### 工具
 
 [开源中国在线工具](http://tool.oschina.net/)
 
@@ -18,7 +16,7 @@ tag: 收藏
 
 [稳定、快速、免费的前端开源项目 CDN 加速服务-bootcdn](http://www.bootcdn.cn/)
 
-**文档**
+### 文档
 
 [Liquid中文](https://liquid.bootcss.com)
 
@@ -27,7 +25,3 @@ tag: 收藏
 [Jekyll英文](https://jekyllrb.com/)
 
 [Textile](https://www.promptworks.com/textile)
-
-**博客**
-
-[廖雪峰](https://www.liaoxuefeng.com/)
