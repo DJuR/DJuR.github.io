@@ -1,1349 +1,467 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="author" content="juru.D" />
 
-<!-- 新 Bootstrap4 核心 CSS 文件 -->
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<title>ARTICLES — 人魚兒</title>
+<meta name="description" content=""/>
 
-<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
-<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+<link rel="icon" href="/w3c/images/sicon.png" type="image/x-icon" />
+<link rel="shortcut icon" href="/w3c/images/sicon.png" type="image/x-icon" />
+<link rel="canonical" href="https://djur.github.io/articles/" href="https://djur.github.io/db/feed.xml">
 
-<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+<link href='/w3c/css/markdown.css' rel='stylesheet' type='text/css' />
+<link href='/w3c/css/rouge.css' rel='stylesheet' type='text/css' />
 
-<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
-
-<title>ARTICLES</title>
-
-</head>
-<body data-spy="scroll" data-target=".navbar" data-offset="120" id="top">
-    <header>
-        <!--
-nav-bg:
-light
-dark
-primary
-success
-info
-warning
-danger
-secondary
-
-
-nav-bar:
-light
-dark
-
--->
-<nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
-  	<ul class="navbar-nav">
-		
-
-            
-
-            
-                <li class="nav-item ">
-                    <a class="nav-link" href="/">HOME</a>
-                </l>
-            
-		
-
-            
-
-            
-                <li class="nav-item active">
-                    <a class="nav-link" href="/articles">ARTICLES</a>
-                </l>
-            
-		
-
-            
-
-            
-                <li class="nav-item ">
-                    <a class="nav-link" href="/lists">LISTS</a>
-                </l>
-            
-		
-
-            
-
-            
-                <li class="nav-item ">
-                    <a class="nav-link" href="/about">ABOUT ME</a>
-                </l>
-            
-		
-
-            
-
-            
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/categories" id="navbardrop" data-toggle="dropdown">
-                        CATEGORIES
-                    </a>
-                    <div class="dropdown-menu">
-                        
-                            <a class="dropdown-item" href="">TOOLS</a>
-                        
-                            <a class="dropdown-item" href="">test2</a>
-                        
-                    </div>
-                </li>
-            
-		
-        
-  	</ul>
-</nav>
-
-<div class="jumbotron jumbotron-fluid" style="background: #2e7bcf;padding-bottom: 0px;">
-    <div class="container">
-        <h1>人魚兒</h1>
-        <p>IF YOU WANT TO DO IT, DO IT</p>
-    </div>
-</div>
-
-        
-    </header>
-    <div class="container">
-        
-        
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>05 Mar 2018</i></small>&nbsp;&nbsp;
-                <a href="/redis/2018/03/05/redis.html">redis Master-Slave</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">redis</a>
-                
-                <h2 id="前言">前言</h2>
-
-<p>部署一个Master，多个Slave的架构，还包含一些简单的主从管理命令的使用。</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir /opt/redis/mss
-</code></pre></div></div>
-
-<p>master的配置文件:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/master_6379.conf
-
-$ vim /opt/redis/mss/master_6379.conf
-</code></pre></div></div>
-
-<p>打开这个文件后，编辑如下内容：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
- 
-pidfile /var/run/redis_6379.pid
- 
-port 6379
- 
-logfile “/opt/redis/log/master_6379.log” # 该项可不设置，默认输出到/dev/null
- 
-slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的slave1的配置文件
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/slave_6380.conf
-
-$ vim /opt/redis/mss/slave_6380.conf
-</code></pre></div></div>
-<p>打开这个文件后，编辑如下内容：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
- 
-pidfile /var/run/redis_6380.pid
- 
-port 6380
- 
-logfile “/opt/redis/log/slave_6380.log” # 该项可不设置，默认输出到/dev/null
- 
-slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的
- 
-slaveof 127.0.0.1 6379
-</code></pre></div></div>
-<p>slave2的配置文件</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/slave_6381.conf
- 
-$ vim /opt/redis/mss/slave_6381.conf
-</code></pre></div></div>
-
-<p>打开这个文件后，编辑如下内容：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
- 
-pidfile /var/run/redis_6381.pid
- 
-port 6381
- 
-logfile “/opt/redis/log/slave_6381.log” # 该项可不设置，默认输出到/dev/null
- 
-slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的
- 
-slaveof 127.0.0.1 6379
-</code></pre></div></div>
-
-<p>slave3的配置文件</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cp /opt/redis/redis-stable/redis.conf /opt/redis/mss/slave_6383.conf
- 
-$ vim /opt/redis/mss/slave_6383.conf
-</code></pre></div></div>
-
-<p>打开这个文件后，编辑如下内容：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>daemonize yes
- 
-pidfile /var/run/redis_6383.pid
- 
-port 6383
- 
-logfile “/opt/redis/log/slave_6383.log” # 该项可不设置，默认输出到/dev/null
- 
-slave-read-only yes # 表示从库只读，如果设置成no，表示从库也是可以写入的
- 
-slaveof 127.0.0.1 6380
-</code></pre></div></div>
-
-<h2 id="启动redis">启动Redis</h2>
-
-<p>启动Master</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir /opt/redis/log
- 
-$ redis-server /opt/redis/mss/master_6379.conf
- 
-$ ps -ef | grep redis
-$ root 1401 1 0 07:08 ? 00:00:00 redis-server *:6379
-$ root 1405 1333 0 07:09 pts/1 00:00:00 grep redis
-</code></pre></div></div>
-
-<p>查看日志：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@vm ~]# tail -f /opt/redis/log/master_6379.log
-</code></pre></div></div>
-
-<p>启动Slave</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-server /opt/redis/mss/slave_6380.conf
- 
-$ redis-server /opt/redis/mss/slave_6381.conf
- 
-$ redis-server /opt/redis/mss/slave_6383.conf
- 
-$ ps -ef | grep redis
-$ root 1401 1 0 07:08 ? 00:00:00 redis-server *:6379
-$ root 1409 1 0 07:11 ? 00:00:00 redis-server *:6380
-$ root 1414 1 0 07:11 ? 00:00:00 redis-server *:6381
-$ root 1419 1 0 07:11 ? 00:00:00 redis-server *:6383
-$ root 1424 1333 0 07:11 pts/1 00:00:00 grep redis
- 
-$
-</code></pre></div></div>
-
-<p>从上面可以看到，三个都启动成功了。</p>
-
-<p>查看主从结构</p>
-
-<p>登录master查看并设置Key</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@vm ~]# redis-cli -p 6379
- 
-127.0.0.1:6379&gt; info Replication
- 
-# Replication
- 
-role:master
- 
-connected_slaves:2
- 
-slave0:ip=127.0.0.1,port=6380,state=online,offset=113,lag=1
- 
-slave1:ip=127.0.0.1,port=6381,state=online,offset=113,lag=1
- 
-master_repl_offset:113
- 
-repl_backlog_active:1
- 
-repl_backlog_size:1048576
- 
-repl_backlog_first_byte_offset:2
- 
-repl_backlog_histlen:112
- 
-127.0.0.1:6379&gt; set hi hello
- 
-OK
- 
-127.0.0.1:6379&gt; get hi
- 
-“hello”
- 
-127.0.0.1:6379&gt;
-</code></pre></div></div>
-
-<p>在上面的操作中，我们查看了主从赋值的情况，可以看到，master拥有两个 slave， 分别是监听了6380和6381端口的，然后我们设置了一个key为hi值为hello的键值对，我们发现，这和我们预期的部署是一样的。</p>
-
-<p>登录slave1并查看主从信息和设置的key</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6380
- 
-$ 127.0.0.1:6380&gt; info replication
- 
-# Replication
- 
-role:slave
- 
-master_host:127.0.0.1
- 
-master_port:6379
- 
-master_link_status:up
- 
-master_last_io_seconds_ago:6
- 
-master_sync_in_progress:0
- 
-slave_repl_offset:532
- 
-slave_priority:100
- 
-slave_read_only:1
- 
-connected_slaves:1
- 
-slave0:ip=127.0.0.1,port=6383,state=online,offset=532,lag=1
- 
-master_repl_offset:532
- 
-repl_backlog_active:1
- 
-repl_backlog_size:1048576
- 
-repl_backlog_first_byte_offset:2
- 
-repl_backlog_histlen:531
- 
-127.0.0.1:6380&gt; get hi
- 
-“hello”
- 
-127.0.0.1:6380&gt;
-</code></pre></div></div>
-
-<p>我们发现，该slave的主是127.0.0.1:6379，并且还有一个Slave3【127.0.0.1:6383】,这都是符合我们预期的结果，最后获取了hi这个key的值，结果发现已经通过过来了，一切正常。</p>
-
-<p>登录slave2并查看主从信息和设置的key</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6381
- 
-127.0.0.1:6381&gt; info replication
- 
-# Replication
- 
-role:slave
- 
-master_host:127.0.0.1
- 
-master_port:6379
- 
-master_link_status:up
- 
-master_last_io_seconds_ago:9
- 
-master_sync_in_progress:0
- 
-slave_repl_offset:812
- 
-slave_priority:100
- 
-slave_read_only:1
- 
-connected_slaves:0
- 
-master_repl_offset:0
- 
-repl_backlog_active:0
- 
-repl_backlog_size:1048576
- 
-repl_backlog_first_byte_offset:0
- 
-repl_backlog_histlen:0
- 
-127.0.0.1:6381&gt; get hi
- 
-“hello”
- 
-127.0.0.1:6381&gt;
-</code></pre></div></div>
-
-<p>登录slave3并查看主从信息和设置的key</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6383
- 
-127.0.0.1:6383&gt; info replication
- 
-# Replication
- 
-role:slave
- 
-master_host:127.0.0.1
- 
-master_port:6380
- 
-master_link_status:up
- 
-master_last_io_seconds_ago:10
- 
-master_sync_in_progress:0
- 
-slave_repl_offset:924
- 
-slave_priority:100
- 
-slave_read_only:1
- 
-connected_slaves:0
- 
-master_repl_offset:0
- 
-repl_backlog_active:0
- 
-repl_backlog_size:1048576
- 
-repl_backlog_first_byte_offset:0
- 
-repl_backlog_histlen:0
- 
-127.0.0.1:6383&gt; get hi
- 
-“hello”
- 
-127.0.0.1:6383&gt;
-</code></pre></div></div>
-
-<p>我们发现，key为hi的键值对也同步过来了，并且slave3的主是【127.0.0.1:6380】，即slave1。</p>
-
-<p>主从切换、调整</p>
-
-<p>在上一小节中我们实现了主从结构的部署，现实中我们可能会遇到某个主服务器或是从服务器宕机的情况，可能需要手动切换主从服务器，那么我们可以使用简单的slaveof命令来实现主从关系的维护。</p>
-
-<p>slaveof no one: 该命令表示，断开和主的关系，自己成为master</p>
-
-<p>slaveof [ip] [port]: 表示把自己设置成 ip:port 的从Redis</p>
-
-<p>模拟slave1宕机，将slave3的主设置为slave2</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6380 shutdown # 模拟slave1宕机
- 
-$ redis-cli -p 6383
- 
-127.0.0.1:6383&gt; info Replication
- 
-# Replication
- 
-role:slave
- 
-master_host:127.0.0.1
- 
-master_port:6380
- 
-master_link_status:down # slave1 已经宕机了
- 
-127.0.0.1:6383&gt; slaveof 127.0.0.1 6381 # 重新设置slave2为自己的主
- 
-OK
- 
-127.0.0.1:6383&gt; info Replication
- 
-# Replication
- 
-role:slave
- 
-master_host:127.0.0.1
- 
-master_port:6381
- 
-master_link_status:up
-</code></pre></div></div>
-
-<p>上面的操作过程主要是，关闭slave1，然后将slave2作为slave3的master，可以看到我们成功进行了切换。</p>
-
-<p>模拟slave2宕机，slave3升级为独立master</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ redis-cli -p 6381 shutdown # 模拟slave2宕机
- 
-$ redis-cli -p 6383
- 
-127.0.0.1:6383&gt; info Replication
- 
-# Replication
- 
-role:slave
- 
-master_host:127.0.0.1
- 
-master_port:6381
- 
-master_link_status:down # slave2 也宕机了
- 
-master_last_io_seconds_ago:-1
- 
-127.0.0.1:6383&gt; slaveof no one
- 
-OK
- 
-127.0.0.1:6383&gt; info Replication
- 
-·#· Replication
- 
-role:master # 升级成为了master
- 
-connected_slaves:0
- 
-master_repl_offset:0
- 
-repl_backlog_active:0
- 
-repl_backlog_size:1048576
- 
-repl_backlog_first_byte_offset:0
- 
-repl_backlog_histlen:0
- 
-127.0.0.1:6383&gt;
-</code></pre></div></div>
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>08 Feb 2018</i></small>&nbsp;&nbsp;
-                <a href="/ubuntu/2018/02/08/ubuntu-%E5%86%85%E5%AD%98%E9%87%8A%E6%94%BE.html">ubuntu内存释放</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">ubuntu</a>
-                
-                <h2 id="ubuntu-内存释放">ubuntu 内存释放</h2>
-
-<ul>
-  <li>
-    <p>用top命令查看才能看到真正的free内存,下面是查看真正内存使用量的另一种命令:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  watch -n 1 cat /proc/meminfo
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>释放kernel用在cache上面的内存,空闲内存增加了约1G:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo sysctl -w vm.drop_caches=3
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>下面这种方法释放的更多，但可能会影响系统的稳定！一定要小心使用:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo sync &amp;&amp; echo 3 | sudo tee /proc/sys/vm/drop_caches
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<p>这个命令会释放无论是使用中的内存还是cache（page cache, inodes, and dentries），小心使用。</p>
-
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>29 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/python/2018/01/29/python-django.html">python Django 框架</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">python</a>
-                
-                <h2 id="python-django-框架">python Django 框架</h2>
-
-<p><strong>Django</strong> 是一个高级的 Python Web框架，具有快速开发、干净、实用的设计等特性，它解决Web开发的许多常见问题，让开发者专注于应用程序。</p>
-
-<ul>
-  <li>安装 Django 或版本替换</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip3 install Django==2.0.1
-</code></pre></div></div>
-
-<ul>
-  <li>卸载 Django</li>
-</ul>
-
-<p>卸载 Django直接删除Django包即可，通过下面命令查看Django安装路径</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python3 -c "import django;print(django.__path__)"
-</code></pre></div></div>
-
-<ul>
-  <li>查看版本</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python -m django --version
-</code></pre></div></div>
-
-<h2 id="创建项目">创建项目</h2>
-
-<ul>
-  <li>创建一个mysite项目</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ django-admin.py startproject mysite
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>执行后的目录结构:
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysite/
-    manage.py
-    mysite/
-        __init__.py
-        settings.py
-        urls.py
-        wsgi.py
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysite/: 项目目录
-
-manage.py: 管理工具
-
-mysite/: 项目的Python目录
-
-mysite/__init__.py: 一个空的文件，告诉python这个目录包含python包
-
-mysite/settings.py: 项目的配置
-
-mysite/urls.py: 项目URL的声明
-
-mysite/wsgi.py: web服务的入口
-</code></pre></div></div>
-
-<ul>
-  <li>运行项目</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python3 manage.py runserver
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>浏览器访问`http://127.0.0.1:8000`
-
-默认端口8000,可设置制定端口:
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python3 manage.py runserver 8080
-</code></pre></div></div>
-
-<ul>
-  <li>创建Polls应用：</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python3 manage.py startapp polls
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>生成polls目录结构:
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>polls/
-__init__.py
-admin.py
-apps.py
-migrations/
-    __init__.py
-models.py
-tests.py
-views.py
-</code></pre></div></div>
-
-<ul>
-  <li>
-    <p>写第一个view文件</p>
-
-    <p>打开polls/views.py写入：</p>
-  </li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.http import HttpResponse
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
-</code></pre></div></div>
-
-<ul>
-  <li>创建一个url配置 <code class="highlighter-rouge">polls/urls.py</code>:</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.urls import path
-
-from . import views
-
-urlpatterns = [
-    path('', views.index, name='index'),
-]
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在mysite/urls.py中设置项目polls的url:
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.urls import include, path
-from django.contrib import admin
-
-urlpatterns = [
-    path('polls/', include('polls.urls')),
-    path('admin/', admin.site.urls),
-]
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>浏览器访问:`http://127.0.0.1:8080/polls`
-</code></pre></div></div>
-
-<h2 id="数据库设置">数据库设置</h2>
-
-<p>mysite/settings.py 项目变量配置文件默认的是SQLite数据库配置(SQLite包含在Python中)</p>
-
-<p>Django已经把后端模块帮我准备好了，只需要执行数据库同步，把相关表生成出来即可：</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python3 manage.py migrate
-</code></pre></div></div>
-
-<ul>
-  <li>创建后端管理员账号:</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python manage.py createsuperuser
-$ Username (leave blank to use 'fnngj'): admin    # 管理员帐号
-$ Email address: admin@mail.com      # email
-$ Password:                          # 密码
-$ Password (again):                  # 重复密码
-$ Superuser created successfully.
-</code></pre></div></div>
-
-<ul>
-  <li>创建models <code class="highlighter-rouge">polls/models.py</code>:</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from django.db import models
-
-
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
-
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-</code></pre></div></div>
-
-<p>编辑<code class="highlighter-rouge">nysite/setting.py</code>文件，添加polls应用:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-]
-</code></pre></div></div>
-
-<h2 id="扩展阅读">扩展阅读</h2>
-
-<ul>
-  <li><a href="http://www.djangoproject.com">Django 官网</a></li>
-</ul>
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>25 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/php/2018/01/25/php-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6Json%E6%95%B0%E6%8D%AE.html">php判断是否Json字符串</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">php</a>
-                
-                <h2 id="php判断是否json字符串">php判断是否Json字符串</h2>
-
-<p>代码:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> public function is_json($string) {
-     json_decode($string);
-     return (json_last_error() == JSON_ERROR_NONE);
-}
-</code></pre></div></div>
-
-<p>json_last_error()函数返回数据编解码过程中发生的错误.</p>
-
-<p>注意: json编解码所操作字符串必须是UTF8的.</p>
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>25 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/php/2018/01/25/php-Phalcon7.html">php Phalcon7</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">php</a>
-                
-                <h3 id="phalcon7-让一切变得简单">Phalcon7 让一切变得简单!</h3>
-<p>欢迎来到 Phalcon7 框架， 一种崭新的 PHP 框架。我们的使命是给开发者一个开发 web 站点和应用的高级工具，让开发者不用担心框架的性能问题.</p>
-
-<h3 id="phalcon7-是什么">Phalcon7 是什么？</h3>
-<p>Phalcon7 是继承自 Phalcon 1.3.x，开源、全功能栈、使用 C 编写、针对 PHP 7 优化的高性能框架。 开发者不需要学习和使用 C 语言的功能， 因为所有的功能都以 PHP 类的方式暴露出来，可以直接使用。 Phalcon7 源自 Phalcon 所以具备了 Phalcon 所有与生俱来的特性，是松耦合的，可以根据项目的需要任意使用其他对象。</p>
-
-<h3 id="phalcon7-不只是为了卓越的性能-我们的目标是让它更加健壮拥有更加丰富的功能以及更加简单易于使用">Phalcon7 不只是为了卓越的性能, 我们的目标是让它更加健壮，拥有更加丰富的功能以及更加简单易于使用！</h3>
-
-<h3 id="phalcon7-版权申明">Phalcon7 版权申明</h3>
-<p>Phalcon7 作为 Phalcon 1.3 系列的继承者，所以版权理所当然的属于 Phalcon 官方团队所有</p>
-
-<h3 id="安装installation">安装（Installation</h3>
-<p>作为PHP C拓展形式的Phalcon，需要一个略微不同于传统PHP的库或框架的安装方法。你可以选择一个当前系统的一个二进制包下载，或者使用源代码构建它。</p>
-
-<h3 id="linuxsolaris">Linux/Solaris¶</h3>
-<p>在Linux/Solaris系统下，你能很轻易从源代码编译和安装这个拓展:</p>
-
-<h3 id="基本要求requirements">基本要求（Requirements）¶</h3>
-<p>必要的包:</p>
-
-<p>PHP &gt;= 7.0 development resources
-GCC compiler (Linux/Solaris)
-Git (如果不是已经安装在你的系统，且你没有从Github上下载这个包并通过FTP/SFTP上传到你的服务器上)</p>
-<h3 id="编译compilation">编译（Compilation）</h3>
-<p>创建扩展:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone --depth=1 git://github.com/dreamsxin/cphalcon7.git
-cd cphalcon7/ext
-phpize
-./configure
-make &amp;&amp; sudo make install
-</code></pre></div></div>
-<p>添加扩展到你的php配置文件，然后重启Web服务器，如果你使用 php-fpm，则重启 php-fpm。</p>
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>18 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/php/2018/01/18/php-%E9%81%87%E5%88%B0%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%97%AE%E9%A2%98.html">php中遇到的字符串问题</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">php</a>
-                
-                <h2 id="php中字符串和数字比较">php中字符串和数字比较</h2>
-
-<p>数字与字符串比较时, 先尝试将字符串转换为数字, 再比较, 一个不能转换为数字的字符串, 转换结果为0, 故与0比较总返回true</p>
-
-<p>执行代码:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var_dump(in_array('test', [0]));
-var_dump('test' == 0);
-</code></pre></div></div>
-
-<p>返回结果为:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool(true)
-bool(true)
-</code></pre></div></div>
-
-<h2 id="字符填充函数">字符填充函数</h2>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str_pad(string, length, pad_string, pad_type)
-</code></pre></div></div>
-<ul>
-  <li>string        要填充的字符串</li>
-  <li>length        新的字符串长度</li>
-  <li>pad_string    填充使用的字符串</li>
-  <li>pad_type      填充位置(左侧:STR_PAD_LEFT，右侧:STR_PAD_RIGHT，两侧:STR_PAD_BOTH)</li>
-</ul>
-
-<p>两侧填充不为偶数，右侧优先：</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo str_pad('hello', 10, 't', STR_PAD_BOTH);
-</code></pre></div></div>
-<p>结果:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tthellottt
-</code></pre></div></div>
-
-<h2 id="字符串长度分割">字符串长度分割</h2>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str_split(string, length =1)
-</code></pre></div></div>
-
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>12 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/python/2018/01/12/python-%E7%BC%BA%E5%B0%91tkinter.html">python 缺少tkinter包</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">python</a>
-                
-                <h2 id="python提示缺少tkinter包">python提示缺少tkinter包</h2>
-
-<p><strong>python 提示缺少tkinter包:</strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ImportError: No module named '_tkinter', please install the python3-tk package
-$ &gt;&gt;&gt; import _tkinter
-$ Traceback (most recent call last):
-$   File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-$ ImportError: No module named '_tkinter'
-
-</code></pre></div></div>
-
-<p><strong>解决:</strong></p>
-
-<p>添加源到<code class="highlighter-rouge">/etc/apt/sources.list</code></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ deb http://cz.archive.ubuntu.com/ubuntu xenial main 
-</code></pre></div></div>
-
-<p>执行:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt update
-$ sudo apt install python3-tk
-</code></pre></div></div>
-
-<p>查看软件包:</p>
-
-<p><a href="https://packages.ubuntu.com/xenial/python3-tk">python3-tk</a></p>
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>11 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/%E6%94%B6%E8%97%8F/2018/01/11/%E6%94%B6%E8%97%8F.html">在线工具文档博客收藏</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">收藏</a>
-                
-                <h2 id="在线工具文档博客收藏">在线工具文档博客收藏</h2>
-
-<p><strong>在线工具:</strong></p>
-
-<p><a href="http://tool.oschina.net/">开源中国在线工具</a></p>
-
-<p><a href="https://somd5.com/">md5在线解密-somd5</a></p>
-
-<p><a href="http://www.bootcdn.cn/">稳定、快速、免费的前端开源项目 CDN 加速服务-bootcdn</a></p>
-
-<p><strong>文档</strong></p>
-
-<p><a href="https://liquid.bootcss.com">Liquid中文</a></p>
-
-<p><a href="https://www.jekyll.com.cn/">Jekyll中文</a></p>
-
-<p><a href="https://jekyllrb.com/">Jekyll英文</a></p>
-
-<p><a href="https://www.promptworks.com/textile">Textile</a></p>
-
-<p><strong>博客</strong></p>
-
-<p><a href="https://www.liaoxuefeng.com/">廖雪峰</a></p>
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>06 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/markdown/2018/01/06/Markdown-%E8%AF%AD%E6%B3%95.html">Markdown 语法</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">markdown</a>
-                
-                <h2 id="markdown-语法">Markdown 语法</h2>
-
-<p><strong>Markdown</strong>是一个用于web编写器将文本转换成标记语言的工具(text-to-HTML)。Markdown允许使用易于读、易于写的纯文本格式编写，然后转换成标准结构的XHTML（或HTML）.</p>
-
-<p><strong>Markdown</strong>做的两件事:
-(1) 纯文本格式语法。
-(2) 用Perl编写的工具，将纯文本转换成HTML。</p>
-
-<h2 id="常用语法">常用语法</h2>
-
-<p><strong>haroopad 编辑器中快捷键</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>名称</th>
-      <th style="text-align: center">Markdown</th>
-      <th style="text-align: right">效果</th>
-      <th style="text-align: right">快捷键</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>标题</td>
-      <td style="text-align: center"><code class="highlighter-rouge">=</code>,<code class="highlighter-rouge">-</code>,<code class="highlighter-rouge">#</code></td>
-      <td style="text-align: right">H*</td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td>加粗</td>
-      <td style="text-align: center"><code class="highlighter-rouge">**text**</code></td>
-      <td style="text-align: right"><strong>text</strong></td>
-      <td style="text-align: right"><code class="highlighter-rouge">Ctrl+B</code></td>
-    </tr>
-    <tr>
-      <td>斜体</td>
-      <td style="text-align: center"><code class="highlighter-rouge">*text*</code></td>
-      <td style="text-align: right"><em>text</em></td>
-      <td style="text-align: right"><code class="highlighter-rouge">Ctrl+I</code></td>
-    </tr>
-    <tr>
-      <td>删除线</td>
-      <td style="text-align: center"><code class="highlighter-rouge">~~text~~</code></td>
-      <td style="text-align: right"><del>text</del></td>
-      <td style="text-align: right"><code class="highlighter-rouge">Ctrl+U</code></td>
-    </tr>
-    <tr>
-      <td>链接</td>
-      <td style="text-align: center"><code class="highlighter-rouge">[title](http://)</code></td>
-      <td style="text-align: right"><a href="http://">title</a></td>
-      <td style="text-align: right"><code class="highlighter-rouge">Ctrl+L</code></td>
-    </tr>
-    <tr>
-      <td>图片</td>
-      <td style="text-align: center"><code class="highlighter-rouge">![alt](http://)</code></td>
-      <td style="text-align: right"><img src="http://" alt="alt" /></td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td>代码</td>
-      <td style="text-align: center"><code class="highlighter-rouge"> </code>code<code class="highlighter-rouge"> </code></td>
-      <td style="text-align: right"><code class="highlighter-rouge">code</code></td>
-      <td style="text-align: right"><code class="highlighter-rouge">Ctrl+K</code></td>
-    </tr>
-    <tr>
-      <td>列表</td>
-      <td style="text-align: center"><code class="highlighter-rouge">* quoteitem</code>,<code class="highlighter-rouge">+ quoteitem</code>,<code class="highlighter-rouge">- quoteitem</code></td>
-      <td style="text-align: right"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td>引用</td>
-      <td style="text-align: center"><code class="highlighter-rouge"> &gt; quote </code></td>
-      <td style="text-align: right"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="example">example:</h2>
-
-<ul>
-  <li>标题</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>标题一
-=====
-
-标题二
-------
-
-# 标题* #[1-6]
-
-</code></pre></div></div>
-
-<ul>
-  <li>列表</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-+ 列表一
-- 列表二
-* 列表三
-1. 数字列表
-
-</code></pre></div></div>
-
-<ul>
-  <li>引用</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-&gt; ## This is a header.
-&gt; 
-&gt; 1.   This is the first list item.
-&gt; 2.   This is the second list item.
-&gt; 
-&gt; Here's some example code:
-&gt; 
-&gt;     return shell_exec("echo $input | $markdown_script");
-</code></pre></div></div>
-
-<h2 id="符号">符号</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">Markdown</th>
-      <th style="text-align: right">效果</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">&amp;copy;</code></td>
-      <td style="text-align: right">©</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">AT&amp;amp;</code></td>
-      <td style="text-align: right">AT&amp;T</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">4&amp;lt;5</code></td>
-      <td style="text-align: right">4&lt;5</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="扩展阅读">扩展阅读</h2>
-<p><a href="https://daringfireball.net/projects/markdown/syntax">markdown 语法</a>
-<a href="http://wowubuntu.com/markdown/">markdown中文</a></p>
-
-
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="card bg-light text-dark" style="margin-top: 35px;">
-        <div class="card-body">
-            <h3>
-                <small><i>06 Jan 2018</i></small>&nbsp;&nbsp;
-                <a href="/markdown/2018/01/06/Markdown-%E7%BC%96%E8%BE%91%E5%99%A8.html">Markdown 编辑器</a>
-            </h3>
-            <hr>
-
-            <div class="card-text" id="main-content">
-                
-                    <a class="label label-default card-link" href="##">markdown</a>
-                
-                <h2 id="markdown-编辑器">Markdown 编辑器</h2>
-
-<p><strong>1. MarkdownPad</strong></p>
-
-<p>MarkdownPad is a full-featured Markdown editor for Windows.</p>
-
-<p><a href="http://markdownpad.com">下载地址</a></p>
-
-<p><strong>2. ReText</strong></p>
-
-<p><a href="http://sourceforge.net/p/retext/home/ReText">下载地址</a></p>
-
-<p><strong>3. WMD</strong></p>
-
-<p><a href="http://code.google.com/p/wmd">下载地址</a></p>
-
-<p><strong>4. Mou</strong></p>
-
-<p><a href="http://mouapp.com/">下载地址</a></p>
-
-<p><strong>5. EpicEditor</strong></p>
-
-<p><a href="http://epiceditor.com/">下载地址</a></p>
-
-<p><strong>6. CuteMarkEd</strong></p>
-
-<p><a href="http://cloose.github.io/CuteMarkEd">下载地址</a></p>
-
-<p><strong>8. Haroopad</strong></p>
-
-<p><a href="http://pad.haroopress.com/user.html">下载地址</a></p>
-
-<p><strong>9. MarkdownEditor</strong></p>
-
-<p><a href="http://jbt.github.io/markdown-editor">在线地址</a></p>
-
-<p><strong>10. QMarkdowner</strong></p>
-
-<p><a href="https://github.com/dragondjf/QMarkdowner">下载地址</a></p>
-
-            </div>
-
-
-        </div>
-    </div>
-
-<div>
-    
-
-  <!-- 分页 -->
-<ul class="pagination">
-
-    <!-- 前一页 -->
-    
-        <li class="page-item disabled"><a class="page-link" href="/articles/page">&laquo;</a></li>
-    
-
-    <!-- 前几页 -->
-    
-    
-
-    <!-- 当前页 -->
-    
-        <li class="page-item active"><a class="page-link" href="/articles">1</a></li>
-    
-
-    
-        <li class="page-item"><a class="page-link" href="/articles/page2">2</a></li>
-    
-
-    <!-- 后一页 -->
-    
-        <li class="page-item"><a class="page-link" href="/articles/page2">&raquo;</a></li>
-    
-</ul>
-
-
-
-
-
-        <footer class="navbar-fixed-bottom">
-    <p>Copyrigh &copy; 2018</p>
-</footer>
-
-    </div> 
-
-    
 <style type="text/css">
-.back-to-top {
-    /*display: none;*/
-    opacity: .9;
-    z-index: 999999;
-    position: fixed;
-    bottom: 100px;
-    right: 5%;
-    margin-left: 40px;
-    width: 38px;
-    height: 38px;
-    border-radius: 3px;
-    cursor: pointer;
-    background-color: #f5f5f5;
-    border: 1px solid #2e7bcf;
+html {
+	display: block;
+	height: 100%;
+	overflow-y: scroll;
 }
-.x-arrow {
-    position: absolute;
-    left: 10px;
-    top: -1px;
-    width: 0;
-    height: 0;
-    border: 9px solid transparent;
-    border-bottom-color: #2e7bcf;
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-.x-stick {
-    position: absolute;
-    left: 15px;
-    top: 15px;
-    width: 8px;
-    height: 14px;
-    display: block;
-    border-radius: 1px;
-    background-color: #2e7bcf;
+.content {
+	line-height: 20px;
+	color: #413838;
+}
+.pin {
+	position: fixed;
+	right: 10px;
+	z-index: 100;
+	bottom: 40%;
+	display: none;
+}
+.pin span {
+	border: 1px solid #999999;
+  border-radius: 100%;
+  padding: 2px;
+}
+/****** post ******/
+.center-aside {
+	width: 60%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.center-aside .header-image {
+	height: 200px;
+	background: url("/w3c/images/bg.jpg");
+	background-position: center;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+}
+.center-aside .author {
+	margin-top: 10px;
+	margin-bottom: 30px;
+	padding-left: 8px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #eeeeee;
+	overflow: hidden;
+	font-size: 15px;
+	color: #999999;
+}
+.center-aside .author .avatar {
+	float: left;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+.center-aside .author .avatar img {
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	box-sizing: border-box;
+}
+.center-aside .author .info {
+	margin-top: 7px;
+	letter-spacing: 1px;
+}
+.center-aside .author .info .talk{
+	margin: 0;
+	margin-top: 3px;
+}
+.center-aside .author .info .talk img{
+  vertical-align: initial;
+}
+.center-aside .title {
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 1.5;
+	margin: 10px 0;
+	text-align: center;
+}
+.center-aside .meta {
+	margin: 10px 0 20px 0;
+	text-align: center;
+}
+.center-aside .meta span {
+	position: relative;
+	top: 1px;
+	margin-right: 10px;
+	font-size: 13px;
+	color: #999999;
+}
+.center-aside .post {
+	padding: 0px 10px;
+	line-height: 1.5em;
+	color: #413838;
+}
+.post-footer {
+	text-align: center;
+  margin-top: 50px;
+  padding-bottom: 20px
+}
+.post-tags {
+	margin: 5px 10px;
+}
+.post-tags span.tag {
+	border: 1px solid #999999;
+  border-radius: 4px;
+  padding: 2px;
+	line-height: 1.8em;
+	margin-left: 5px;
+}
+.PageNavigation {
+  font-size: 14px;
+  display: block;
+  width: auto;
+  overflow: hidden;
+	padding: 0 5px;
+}
+.PageNavigation a {
+  display: block;
+  width: 50%;
+  float: left;
+  margin: 1em 0;
+}
+.PageNavigation .next {
+	float: right;
+  text-align: right;
+}
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  padding-bottom: 50px
 }
 </style>
+<style type="text/css">
+ul.nostyle {
+	margin-left: 0;
+	padding-left: 20px;
+	list-style: none;
+}
+a, a:hover, a:visited {
+	color: #bf8b8b;
+	text-decoration: none;
+	cursor: auto;
+}
+a.blue-link, a.blue-link:hover, a.blue-link:visited {
+	color: #4094c7;
+}
+a.grey-link, a.grey-link:hover, a.grey-link:visited {
+	color: #999999;
+}
+</style>
+<style type="text/css">
+@media (max-width: 1366px)
+{
+	.center-aside {
+		width: 800px;
+	}
+}
+@media (max-width: 768px)
+{
+	.center-aside {
+		width: 100%;
+	}
+}
+</style>
+</head>
 
-<div class="back-to-top">
-    <div class="x-arrow"></div>
-    <div class="x-stick"></div>
+<body>
+	
+	
+
+
+
+
+<img src="" style="display:none;"/>
+<div class="content">
+	<div class="pin"><span><a href="javascript:void(0);">up</a></span>
+	</div>
+	<div class="top-aside">
+	</div>
+	<div class="center-aside">
+		<div class="header-image">
+			<a style="display:block;height:100%;" href="/article" title="Go Home"></a>
+		</div>
+		<div class="author">
+				<div>
+	      <a class="avatar" href="/aboutme">
+	        <img src="/w3c/images/avator.jpg" alt="100" title="About Me"/>
+				</a>
+				</div>
+				<div class="info">
+					<span class="label">
+	          作者
+	      	</span>
+	      	<a class="author-name blue-link" href="/aboutme">
+	        	<span>juru.D</span>
+					</a>
+					<span style="margin-left: 10px;"></span>
+	      	<div>
+						<span>写了<a class="blue-link" href="/article"><i style="font-style:normal;" id="totalPosts">0</i>篇</a>文章</span>，
+	        	<span>共<i style="font-style:normal;" id="totalWords">0</i>字</span>，
+						<span>获得了<i style="font-style:normal;" id="totalComments">0</i>条评论</span>
+						<!-- <span>获得了<i style="font-style:normal;" id="totalLikes">0</i>个喜欢</span> -->
+	      	</div>
+					<div class="talk"><span id="shuoshuo">暂无说说</span><a class="blue-link" target="_parent" href="/#comments"> · 评论</a></div>
+				</div>
+    </div>
+		<div class="title">ARTICLES</div>
+		<div class="meta">
+            <span class="wordage">字数·0</span>
+            <!-- <span class="views-count">阅读5448</span> -->
+            <span ><a class="grey-link post-data" target="_parent" href="#comments" data-method="comments" data-thread-key="" data-text="评论·%s">评论0</a></span>
+						<span class="post-data" data-method="likes" data-thread-key="" data-text="喜欢·%s">喜欢0</span>
+            <span class="post-data" data-method="reposts" data-thread-key="" data-text="转发·%s">转发0</span>
+    </div>
+
+		<div class="post">
+			
+		</div>
+
+		<div class="post-footer">
+			<!--<p>&copy; 人魚兒</p>-->
+		</div>
+
+		<div class="post-tags">
+			TAGS:
+			
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+	
+
+	
+		
+	
+
+
+
+			
+			<span class="tag"><a href="/article?category=技术">技术</a></span>
+			
+			<span class="tag"><a href="/article?category=收藏">收藏</a></span>
+			
+		</div>
+
+		<div class="PageNavigation">
+		  
+		  
+		</div>
+
+		<div style="height: 20px;"></div>
+		<div class="ds-share flat" data-thread-key="" data-title="ARTICLES" data-images="" data-content="" data-url="https://djur.github.io/articles/">
+    <div class="ds-share-inline">
+     <!-- <ul  class="ds-share-icons-16">
+      	<li ><span class="ds-more">分享到：</span></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+				<li><a class="ds-facebook" href="javascript:void(0);" data-service="facebook">Facebook</a></li>
+      </ul>-->
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ 		</div>
+		<!-- duoshuo -->
+		<div name="comments" id="comments">
+		<div class="ds-thread" data-thread-key="" data-max-depth="2" data-title="ARTICLES" data-url="https://djur.github.io/articles/"></div>
+		</div>
+	</div>
 </div>
+
+<!-- duoshuo -->
+<script>
+// baidu-tongji
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script>
+// google-analytics
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
 <script type="text/javascript">
-    $(function() {
-    $(window).scroll(function() {
-        if ($(window).scrollTop() > 1000)
-            $('.back-to-top').show();
-        else
-            $('.back-to-top').hide();
-    });
-    $('.back-to-top').click(function() {
-        console.log('a')
-        $('html, body').animate({scrollTop: 0}, 1000);
-    });
+  var duoshuoQuery = {short_name:"sbys"};
+  var duoshuoDir = "/w3c/duoshuo/embed.min.js";
+  duoshuoDir = duoshuoDir.substring(0, duoshuoDir.lastIndexOf("/")+1);
+  //console.log(duoshuoDir);
+  var duoshuoShortName = "sbys";
+  var duoshuoUserName = "xk";
+</script>
+<script src="/w3c/duoshuo/embed.min.js"></script>
+<style type="text/css">
+/**************override duoshuo css*************/
+#ds-share #ds-reset.ds-share-inline {
+  margin: 0 7px;
+}
+#ds-thread {
+  margin: 5px 10px 5px 5px;
+}
+#ds-thread #ds-reset .ds-login-buttons .ds-social-links {
+	width: auto;
+}
+#ds-notify {
+  bottom: 5px;
+  right: 5px;
+}
+#ds-thread #ds-reset a.ds-user-name[data-user-id='6324572809590735618']:after {
+	content: "博主";
+	margin-left: 6px;
+	font-size: 12px;
+	color: #ffffff;
+	background: rgba(62, 46, 46, 0.35);
+	border-radius: 4px;
+	padding: 1px 3px;
+}
+#ds-thread #ds-reset span.ds-user-name:after {
+  content: "游客";
+  margin-left: 6px;
+  font-size: 12px;
+  color: #bbb6ae;
+  /* background: rgba(62, 46, 46, 0.35); */
+  border-radius: 4px;
+  padding: 1px 3px;
+}
+/* likes */
+#ds-thread #ds-reset a.ds-like-thread-button {
+  /* background: none; */
+  /* border: none; */
+  padding: 2px 5px;
+  border-radius: 15px;
+}
+/* recent comments */
+#ds-thread #ds-reset .ds-meta {
+  padding: 3px 0 0;
+  border: none;
+}
+#ds-thread #ds-reset a {
+  color: #333;
+}
+div#ds-recent-comments.ds-recent-comments {
+  border: 1px dotted #ddd;
+  border-radius: 10px;
+  padding: 0px 5px 7px 7px;
+}
+#ds-recent-comments li.ds-comment {
+  border-top: none;
+}
+#ds-recent-comments li.ds-comment .ds-excerpt {
+  color: #666;
+  margin-top: 10px;
+}
+/* hot comments */
+#ds-thread #ds-reset #ds-hot-posts {
+  border-radius: 10px;
+}
+/* share checkbox */
+#ds-thread #ds-reset .ds-post-options .ds-sync {
+  display: none;
+}
+/* comments */
+#ds-thread #ds-reset li.ds-tab a.ds-current {
+  border: 0px;
+}
+/* smiles */
+#ds-smilies-tooltip {
+  width: initial;
+  max-width: 600px;
+  margin-right: 15px;
+}
+#ds-smilies-tooltip ul.ds-smilies-tabs {
+  width: 80px;
+}
+#ds-smilies-tooltip .ds-smilies-container {
+  margin-left: 80px;
+}
+/* image */
+#ds-thread #ds-reset .ds-replybox .ds-avatar img {
+  margin-left: -8px;
+}
+</style>
+<!--多说的通知区域是从脚本插入的，要覆盖它的样式，也需要在脚本里覆盖，暂时不做 @2016-8-2-->
+
+
+<!-- jQuery -->
+<script type="text/javascript">
+	var sitefile = "/db/Sitefile";
+</script>
+<script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script src="/w3c/js/timeago.js"></script>
+<script src="/w3c/js/pagecache.js"></script>
+<script src="/w3c/js/jquery.duoshuo.js"></script>
+
+<script src="/w3c/js/post.js"></script>
+<script>
+$(".pin").on("click", function(event) {
+    var target = $("html, body");
+    if( target.length ) {
+        event.preventDefault();
+        $("html, body").stop().animate({
+            scrollTop: target.offset().top
+        }, 1000);
+    }
+});
+$(window).scroll(function(event){
+	var top = $(window).scrollTop();
+	var target = $("body");
+	if ( target.length ) {
+		if ( target.scrollTop() > 2000 ) {
+			$(".pin").show();
+		} else {
+			$(".pin").hide();
+		}
+	}
 });
 </script>
 </body>
