@@ -7,7 +7,7 @@
   {% assign totalCategories = "" %}
   {% for post in site.posts %}
     {% comment %}第一部分，获取文章的子目录+categories（优先级：目录 > categories变量）{% endcomment %}
-    {% assign list = post.path|split:"/"; %}
+    {% assign list = post.path|split:"/" %}
     {% assign categories = post.categories|join:"," %}
     {% assign subdirs = "" %}
     {% for item in list %}
