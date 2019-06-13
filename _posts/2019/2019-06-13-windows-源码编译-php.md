@@ -55,8 +55,9 @@ phpsdk_deps --update --branch master
 or 
 
 ``` 
-phpsdk_deps --update --branch X.Y [x.y为分支名]
+phpsdk_deps --update --branch X.Y [例如：7.3]
 ```
+注意：我在执行 `buildconf` 提示`不是内部或外部命令，也不是可运行的程序或批处理文件。` ,原因是上面的分支名和本地的代码分支不一致，切相同就可以
 
 7、可以像在 `Linux` 系统一样编译 `PHP` 源码了
 
@@ -64,8 +65,12 @@ phpsdk_deps --update --branch X.Y [x.y为分支名]
 buildconf && configure --enable-cli && nmake
 ```
 
+
 ### 参考资料
 
 * [https://windows.php.net](https://windows.php.net/)
 * [wiki.php.net](https://wiki.php.net/internals/windows/stepbystepbuild_sdk_2)
 * [php-sdk-binary-tools](https://github.com/microsoft/php-sdk-binary-tools/tree/php-sdk-2.2.0beta6)
+* [Windows 下最详细的源码编译 PHP 以及 PHP 扩展](https://learnku.com/articles/22323)
+
+
