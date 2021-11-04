@@ -1,21 +1,8 @@
-# DJuR.github.io
+# DJuR
 
-## 1. 安装Ruby
+It's my homepage site: [https://DJuR.github.io](https://DJuR.github.io).
 
-## 2. 安装 Jekyll 和 bundler gems
+## License
 
-```
-gem install jekyll bundler
-```
+Open sourced under the [MIT license](LICENSE).
 
-## 3. 进入项目目录
-
-```
-cd DJuR.github.io
-```
-
-## 4.启动服务
-
-```
-bundle exec jekyll serve
-```
