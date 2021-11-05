@@ -6,6 +6,8 @@ email:            dingjuru@163.com.com
 description: >
   DJuR blog.
 
+test: ffff
+
 version:          1.0
 
 url:              'https://DJuR.github.io'
@@ -38,8 +40,8 @@ navigation:
   url: /blog/
 - text: Archive
   url: /archive/
-- text: Résumé
-  url: /resume/
+- text: Abstract
+  url: /abstract/
 - text: Github
   url: https://github.com/DJuR
   external: true
@@ -62,7 +64,7 @@ disqushandler:    'DJuR'
 
 # Blog Configurations
 paginate:         10 # Posts per page on the blog index
-paginate_path:    '/blog/page:num'
+paginate_path:    '/blog/page:num,/book/page:num,'
 destination:      ./_site
 incremental:      true
 regenerate:       false

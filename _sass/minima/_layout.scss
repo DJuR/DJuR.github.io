@@ -7,7 +7,10 @@
   min-height: $spacing-unit * 1.865;
 
   // Positioning context for the mobile navigation icon
-  position: relative;
+  position: fixed;
+  width: 100%;
+  background: #ffffff;
+  z-index: 999;
 }
 
 .site-title {
@@ -105,7 +108,7 @@
  */
 .site-footer {
   border-top: 1px solid $grey-color-light;
-  padding: $spacing-unit 0;
+  padding: $spacing-unit/3 0;
 }
 
 .footer-heading {
@@ -172,10 +175,11 @@
  * Page content
  */
 .page-content {
-  padding: $spacing-unit 0;
+  padding: $spacing-unit*2.5 0;
   flex: 1 0 auto;
   display: flex;
   flex-direction: row;
+
 
   .wrapper {
     flex: 1 0 auto;
@@ -278,4 +282,35 @@ div.navigation.text-left {
 
 div.navigation.text-right {
   float: right;
+}
+
+/**
+ * book
+ */
+.book-left {
+  padding-top: 15px;
+  top: $spacing-unit*1.9;
+  position: fixed;
+  height: 90%;
+  background: #ffffff;
+  overflow-y: auto;
+  width: $spacing-unit*9;
+  border-top: 1px solid rgba(0,0,0,.07);
+}
+.book-summary {
+  display: block;
+  padding: 10px 15px;
+  border-bottom: none;
+  color: #364149;
+  background: 0 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.book-left ul, .book-left li {
+  list-style-type: none;
+}
+.book-left ul li a {
+  color: #364149;
 }
