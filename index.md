@@ -2,7 +2,6 @@
 layout: home
 ---
 
-一枚计算机专业java高级工程师。
 
 ./文章
 ----------
@@ -20,5 +19,6 @@ layout: home
 </ul>
 
 
-./引用
------------
+# ./参考
+[1] <a href="http://hollischuang.gitee.io/tobetopjavaer/" target="_blank">Java工程师成神之路</a>
+
