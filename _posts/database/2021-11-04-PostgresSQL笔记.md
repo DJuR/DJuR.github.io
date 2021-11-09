@@ -220,7 +220,7 @@ select name,id,len, row_number() over (partition by name order by len asc ) from
 
  * `partition by`
 
-   做分组，此处按照`name`字段分组。
+   做分组(不聚合)，此处按照`name`字段分组。
 
  * `order by`
 
@@ -251,6 +251,25 @@ select * from (select name,id,len, row_number() over (partition by name order by
  a    |  2 |   2 |          1
  b    |  4 |  10 |          1
  c    |  5 |   2 |          1
+```
+
+**说明：**
+
+partition只做分组，不做聚合
+
+```sql
+select id, name,len,count(1) over(partition by name order by name) as count from test.test;
+```
+
+结果:
+
+```
+id | name | len | count
+----+------+-----+-------
+  2 | a    |   2 |     2
+  1 | a    |   3 |     2
+  4 | b    |  10 |     1
+  5 | c    |   2 |     1
 ```
 
 
