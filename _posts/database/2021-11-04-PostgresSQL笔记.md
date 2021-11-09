@@ -193,6 +193,68 @@ PostgreSQL 的读未提交模式的行为和读已提交相同。
 
 * 咨询锁
 
+## 特殊查询处理方法
+
+## 重复数据中只取一条数据
+
+> 表结构及数据如下，按照`name`去重，取`len`小的数据，即id为2,4,5的数据。
+
+表结构及数据：
+
+```
+id | name | len
+----+------+-----
+  2 | a    |   2
+  1 | a    |   3
+  4 | b    |  10
+  5 | c    |   2
+```
+
+初步查询如下：
+
+> 增加了row_number列，作为排序列
+
+```sql
+select name,id,len, row_number() over (partition by name order by len asc ) from test.test
+```
+
+ * `partition by`
+
+   做分组，此处按照`name`字段分组。
+
+ * `order by`
+
+   做排序，此处按照`len`排序。
+
+初步查询结果:
+
+```sql
+ name | id | len | row_number
+------+----+-----+------------
+ a    |  2 |   2 |          1
+ a    |  1 |   3 |          2
+ b    |  4 |  10 |          1
+ c    |  5 |   2 |          1
+```
+
+最终查询：
+
+```sql
+select * from (select name,id,len, row_number() over (partition by name order by len asc ) as row_number from test.test) a where row_number = 1;
+```
+
+最终结果：
+
+```
+ name | id | len | row_number
+------+----+-----+------------
+ a    |  2 |   2 |          1
+ b    |  4 |  10 |          1
+ c    |  5 |   2 |          1
+```
+
+
+
 
 # psql的使用
 
