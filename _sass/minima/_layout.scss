@@ -319,3 +319,11 @@ div.navigation.text-right {
 .book-left ul li a {
   color: #364149;
 }
+.book-left:checked ~ ul {
+  display: none;
+}
+@include media-query($on-palm) {
+  .book-left {
+    display: none;
+  }
+}
