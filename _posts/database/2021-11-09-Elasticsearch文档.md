@@ -631,7 +631,7 @@ PUT _index_template/template_1
   }
   ```
 
-match、term、filter、query区别
+# match、term、filter、query区别
 
 * `term`:精确匹配，不进行分词
 * `match`：分词模糊匹配
