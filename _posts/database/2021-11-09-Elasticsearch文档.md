@@ -638,6 +638,10 @@ PUT _index_template/template_1
 * `filter`:没有相关度，要么有数据，有么null
 * `query`:相关度计算
 
+# Qeuery DSL
+
+
+
 
 
 
