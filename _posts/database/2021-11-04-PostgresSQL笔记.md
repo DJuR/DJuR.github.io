@@ -195,7 +195,7 @@ PostgreSQL 的读未提交模式的行为和读已提交相同。
 
 ## 特殊查询处理方法
 
-## 重复数据中只取一条数据
+### 重复数据中只取一条数据
 
 > 表结构及数据如下，按照`name`去重，取`len`小的数据，即id为2,4,5的数据。
 
@@ -272,7 +272,47 @@ id | name | len | count
   5 | c    |   2 |     1
 ```
 
+### WITH 公共表达式
 
+基本语法：
+
+```
+with a as (
+ insert | delete | select 语句...
+), with b as (
+	...
+) select a.name, b.code from a join b on a.id = b.id
+```
+
+`a`和`b`作为临时表
+
+### 模式匹配
+
+* like
+
+  下划线 （`_`）代表（匹配）任何单个字符； 而一个百分号（`%`）匹配任何零或更多个字符的序列。    
+
+  ```
+  select * from a where name like 'a%'
+  ```
+
+  操作符`~~`等效于`LIKE`， 而`~~*`对应`ILIKE`。 `!~~`和`!~~*`操作符分别代表`NOT LIKE`和`NOT ILIKE`
+
+* similar to 正则表达式
+
+  ```
+  select * form a where name similar to '(a|b)'
+  ```
+
+  
+
+* Posix正则表达式
+
+  ```
+  select * from a where name ~ '(a|b)'
+  ```
+
+  
 
 
 # psql的使用
@@ -328,6 +368,30 @@ psql -h host地址 -p 端口  -U 账户 -d 数据库
 ```shell
 psql -h host -p port -d database -U username -c "\copy (select id,name from schema.user) to '/tmp/user.csv' with csv;"
 ```
+
+* psql 密码处理问题
+
+  * `export PGPASSWORD="密码"`
+
+    设置环境变量（或临时环境变量）
+
+  * 配置密码存储
+
+    在`~/.pgpass`文件里设置，格式如下
+
+    ```
+    ip:端口:库:账户:密码
+    ```
+
+    示例：
+
+    ```
+    127.0.0.1:5432:test:123445
+    ```
+
+    
+
+    
 
 # pg_dump 的使用
 

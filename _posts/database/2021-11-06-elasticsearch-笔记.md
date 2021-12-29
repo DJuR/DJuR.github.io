@@ -542,6 +542,63 @@ layout: book
 
   
 
+# 问题处理
+
+## TOO_MANY_REQUESTS/12/disk usage exceeded flood-stage watermark, index has read-only-allow-delete block
+
+**原因：**
+
+​	一次请求请求中批量插入的数据太多，以及短时间内的请求次数太多引起ES节点服务器内存超过限制，ES主动给索引上锁。
+
+**解决办法：**
+
+​	设置索引`read-only-allow-delete`为`false`
+
+* 示例（logstash_test索引）：
+
+  ```http
+  GET /logstash_test/_settings
+  {
+    "logstash_test" : {
+      "settings" : {
+        "index" : {
+          "routing" : {
+            "allocation" : {
+              "include" : {
+                "_tier_preference" : "data_content"
+              }
+            }
+          },
+          "number_of_shards" : "1",
+          "blocks" : {
+            "read_only_allow_delete" : "true"
+          },
+          "provided_name" : "logstash_test",
+          "creation_date" : "1639038931421",
+          "number_of_replicas" : "1",
+          "uuid" : "iwskYolMQD6TnoOiScUPXQ",
+          "version" : {
+            "created" : "7130299"
+          }
+        }
+      }
+    }
+  }
+  
+  ```
+
+  更改：
+
+  ```http
+  PUT /logstash_test/_settings
+  {
+    "index.blocks.read_only_allow_delete": false
+  }
+  
+  ```
+
+  
+
 
 
 # 参考资料
