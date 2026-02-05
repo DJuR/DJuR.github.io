@@ -3,6 +3,7 @@ layout: post
 title:  python Django 框架
 categories: python
 tag: python
+published: false
 ---
 * content
 {:toc}

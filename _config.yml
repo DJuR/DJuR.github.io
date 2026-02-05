@@ -2,7 +2,7 @@
 title:            DJuR
 longtitle:        DJuR
 author:           ding juru
-email:            dingjuru@163.com.com
+email:            dingjuru@163.com
 description: >
   DJuR blog.
 
@@ -36,13 +36,21 @@ excerpt_separator: "<!--more-->"
 
 # Navigation
 navigation:
-- text: Blog
+- text: 博客
   url: /blog/
-- text: Archive
+- text: 文档
+  url: /book/
+- text: 周刊
+  url: /weekly/
+- text: 笔记
+  url: /notes/
+- text: AI 实践
+  url: /ai/
+- text: 归档
   url: /archive/
-- text: Abstract
+- text: 摘要
   url: /abstract/
-- text: Github
+- text: GitHub
   url: https://github.com/DJuR
   external: true
 
@@ -63,8 +71,8 @@ cnzzhandler:      '1277366039'
 disqushandler:    'DJuR'
 
 # Blog Configurations
-paginate:         10 # Posts per page on the blog index
-paginate_path:    '/blog/page:num,/book/page:num,'
+paginate:         9 # Posts per page on the blog index
+paginate_path:    '/blog/page:num/'
 destination:      ./_site
 incremental:      true
 regenerate:       false
@@ -74,3 +82,35 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jemoji
+
+collections:
+  weekly:
+    output: true
+    permalink: /weekly/:name/
+  notes:
+    output: true
+    permalink: /notes/:name/
+  ai:
+    output: true
+    permalink: /ai/:name/
+  books:
+    output: true
+    permalink: /book/:path/
+
+defaults:
+  - scope:
+      type: weekly
+    values:
+      layout: collection
+  - scope:
+      type: notes
+    values:
+      layout: collection
+  - scope:
+      type: ai
+    values:
+      layout: collection
+  - scope:
+      type: books
+    values:
+      layout: book-chapter

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Abstract
+title: 摘要
 ---
 
 ### About Me

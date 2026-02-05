@@ -3,6 +3,7 @@ layout: post
 title:  "ubuntu 安装atom导致apt报错解决方法"
 categories: ubuntu
 tag: ubuntu
+published: false
 ---
 * content
 {:toc}

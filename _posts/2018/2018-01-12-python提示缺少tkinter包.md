@@ -3,6 +3,7 @@ layout: post
 title:  python 缺少tkinter包
 categories: python
 tag: python
+published: false
 ---
 * content
 {:toc}

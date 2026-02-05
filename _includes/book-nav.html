@@ -1,0 +1,20 @@
+{% assign series = site.books | where: "type", "series" | where: "book", page.book | first %}
+{% assign chapters = site.books | where: "type", "chapter" | where: "book", page.book | sort: "order" %}
+
+<div class="book-nav">
+  {% if series %}
+    <div class="book-nav-title">{{ series.title }}</div>
+  {% endif %}
+  <ul class="book-nav-list">
+    {% if series %}
+      <li class="book-nav-item {% if page.url == series.url %}is-active{% endif %}">
+        <a href="{{ series.url | relative_url }}">概览</a>
+      </li>
+    {% endif %}
+    {% for item in chapters %}
+      <li class="book-nav-item {% if page.url == item.url %}is-active{% endif %}">
+        <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
