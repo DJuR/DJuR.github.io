@@ -3,6 +3,7 @@ layout: page
 title: 文档
 description: DJuR 文档模块
 permalink: /book/
+is_index: true
 ---
 
 <div class="home-landing">
@@ -15,11 +16,7 @@ permalink: /book/
 <section class="home-main" style="margin-top: 24px;">
   <h2 class="section-title">系列列表</h2>
   <div class="post-grid">
-   {% assign published_books = site.books | where_exp: "item", "item.published == true" %}
-  {% assign series_list = published_books
-    | where_exp: "item", "item.type == 'series' or item.path contains '/index.md'"
-    | sort: "order"
-  %}
+    {% assign series_list = site.books | where_exp: "item", "item.published == true" | where_exp: "item", "item.type == 'series'" | sort: "order" %}
 
     {% for item in series_list %}
       <a class="post-card post-link-card" href="{{ item.url | relative_url }}">
