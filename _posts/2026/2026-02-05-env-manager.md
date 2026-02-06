@@ -336,7 +336,10 @@ xattr -d com.apple.quarantine env-manager
 
 ---
 
-**下载地址**：[GitHub 仓库链接]
+**下载地址**：
+<a href="https://github.com/DJuR/env-manager" target="_blank" rel="noopener noreferrer">
+GitHub 仓库链接
+</a>
 
 **版本**：3.0.0
 **许可证**：MIT
