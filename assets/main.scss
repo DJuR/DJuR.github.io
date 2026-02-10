@@ -115,6 +115,9 @@
   font-weight: 600;
   color: #e2e8f0;
   text-decoration: none;
+  font-size: 30px;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 .post-card .post-excerpt {
@@ -437,6 +440,7 @@
   font-size: clamp(26px, 3vw, 36px);
   letter-spacing: 0.4px;
   color: #0f172a;
+  line-height: normal;
 }
 
 .post-meta {

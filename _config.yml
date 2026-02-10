@@ -1,7 +1,7 @@
 # Configurations
 title:            DJuR
 longtitle:        DJuR
-author:           ding juru
+author:           
 email:            dingjuru@163.com
 description: >
   DJuR blog.
@@ -26,11 +26,12 @@ kramdown:
   syntax_highlighter_opts:
     guess_lang:           true
 
-
+minima:
+  date_format: "%Y-%m-%d"
 markdown_ext:     markdown,mkdown,mkdn,mkd,md
 
 # Permalinks
-permalink:        none
+permalink:        date
 
 excerpt_separator: "<!--more-->"
 
@@ -42,10 +43,10 @@ navigation:
   url: /book/
 - text: 周刊
   url: /weekly/
-- text: 笔记
-  url: /notes/
-- text: AI 实践
-  url: /ai/
+# - text: 笔记
+#   url: /notes/
+# - text: AI 实践
+#   url: /ai/
 - text: 归档
   url: /archive/
 - text: 摘要
@@ -86,7 +87,7 @@ plugins:
 collections:
   weekly:
     output: true
-    permalink: /weekly/:name/
+    permalink: date
   notes:
     output: true
     permalink: /notes/:name/

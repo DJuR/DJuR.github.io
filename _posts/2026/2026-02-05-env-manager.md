@@ -1,8 +1,9 @@
 ---
 layout: post
-title:  "跨平台环境变量管理工具 - 让环境配置更简单"
+title:  "跨平台环境变量管理工具"
+summary: "环境变量管理工具，它可以帮助你轻松管理多个环境配置，支持一键切换，而且完全跨平台"
 categories: 工具
-tag: 工具
+tags: [工具, ai]
 published: true
 ---
 * content
